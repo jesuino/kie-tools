@@ -49,6 +49,7 @@ module.exports = async (env, argv) => {
     entry: {
       index: "./src/index.tsx",
       "swf-editor-envelope": "./src/envelope/SwfEditorEnvelopeApp.ts",
+      "dashbuilder-editor-envelope": "./src/envelope/DashbuilderEditorEnvelopeApp.ts",
       "text-editor-envelope": "./src/envelope/TextEditorEnvelopeApp.ts",
       "broadcast-channel-single-tab-polyfill": "./src/polyfill/BroadcastChannelSingleTab.ts",
     },
@@ -87,9 +88,12 @@ module.exports = async (env, argv) => {
           { from: "./static/images", to: "./images" },
           { from: "./static/samples", to: "./samples" },
           { from: "./static/envelope/swf-editor-envelope.html", to: "./swf-editor-envelope.html" },
+          { from: "./static/envelope/dashbuilder-editor-envelope.html", to: "./dashbuilder-editor-envelope.html" },
           { from: "./static/envelope/text-editor-envelope.html", to: "./text-editor-envelope.html" },
           { from: "./static/favicon.svg", to: "./favicon.svg" },
           { from: "./static/env.json", to: "./env.json" },
+          // dashbuilder bundle
+          { from: "../dashbuilder-editor/dist/dashbuilder-runtime-client", to: "./dashbuilder-runtime-client" },
         ],
       }),
       new ProvidePlugin({

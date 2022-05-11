@@ -107,11 +107,6 @@ interface Props {
    * ChannelType where the component is running.
    */
   channelType: ChannelType;
-  /**
-   * Preview/edit state
-   */
-  showEditor?: boolean;
-  onShowPreviewChange?: (v: boolean) => void;
 }
 
 const UPDATE_TIME = 1000;
@@ -125,18 +120,16 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
   forwardedRef
 ) => {
   const [initialContent, setInitialContent] = useState({ originalContent: INITIAL_CONTENT, path: "" });
-  const [content, setContent] = useState("");
-  const [showPreview, setShowPreview] = useState<boolean>(props.showEditor!);
+  const [renderContent, setRenderContent] = useState("");
+  const [showPreview, setShowPreview] = useState<boolean>(false);
   const dashbuilderMonacoEditorRef = useRef<DashbuilderMonacoEditorApi>(null);
-
-  useEffect(() => props.onShowPreviewChange!(showPreview), [props, showPreview]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setContent(dashbuilderMonacoEditorRef.current?.getContent() || "");
+      setRenderContent(dashbuilderMonacoEditorRef.current?.getContent() || "");
     }, UPDATE_TIME);
     return () => clearTimeout(timer);
-  }, [content]);
+  }, [renderContent]);
 
   useImperativeHandle(
     forwardedRef,
@@ -199,7 +192,7 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
   const panelContent = (
     <DrawerPanelContent isResizable={true} defaultSize={showPreview ? "100%" : "50%"}>
       <DrawerPanelBody hasNoPadding={true}>
-        <Dashbuilder content={content} />
+        <Dashbuilder content={renderContent} />
       </DrawerPanelBody>
     </DrawerPanelContent>
   );

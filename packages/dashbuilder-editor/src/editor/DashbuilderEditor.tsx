@@ -119,7 +119,7 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
   props,
   forwardedRef
 ) => {
-  const [initialContent, setInitialContent] = useState({ originalContent: INITIAL_CONTENT, path: "" });
+  const [initialContent, setInitialContent] = useState({ originalContent: INITIAL_CONTENT, path: "empty.dash.yml" });
   const [renderContent, setRenderContent] = useState("");
   const [showPreview, setShowPreview] = useState<boolean>(false);
   const dashbuilderMonacoEditorRef = useRef<DashbuilderMonacoEditorApi>(null);
@@ -131,6 +131,10 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
     return () => clearTimeout(timer);
   }, [renderContent]);
 
+  const isVSCode = useCallback(() => {
+    return props.channelType === ChannelType.VSCODE_DESKTOP || props.channelType === ChannelType.VSCODE_WEB;
+  }, [props]);
+
   useImperativeHandle(
     forwardedRef,
     () => {
@@ -138,7 +142,7 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
         setContent: (path: string, newContent: string): Promise<void> => {
           try {
             setInitialContent({
-              originalContent: INITIAL_CONTENT,
+              originalContent: newContent,
               path: path,
             });
             return Promise.resolve();
@@ -176,12 +180,18 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
       if (operation === MonacoEditorOperation.EDIT) {
         props.onNewEdit(new KogitoEdit(newContent));
       } else if (operation === MonacoEditorOperation.UNDO) {
+        if (!isVSCode()) {
+          dashbuilderMonacoEditorRef.current?.undo();
+        }
         props.onStateControlCommandUpdate(StateControlCommand.UNDO);
       } else if (operation === MonacoEditorOperation.REDO) {
+        if (!isVSCode()) {
+          dashbuilderMonacoEditorRef.current?.redo();
+        }
         props.onStateControlCommandUpdate(StateControlCommand.REDO);
       }
     },
-    [props]
+    [props, isVSCode]
   );
 
   useEffect(() => {

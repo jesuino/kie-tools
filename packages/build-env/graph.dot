@@ -180,6 +180,7 @@ digraph G {
   "@kie-tools/swf-sandbox" -> "@kie-tools/i18n-common-dictionary" [ style = "solid", color = "black" ];
   "@kie-tools/swf-sandbox" -> "@kie-tools/kie-sandbox-fs" [ style = "solid", color = "black" ];
   "@kie-tools/swf-sandbox" -> "@kie-tools/serverless-workflow-editor" [ style = "solid", color = "black" ];
+  "@kie-tools/swf-sandbox" -> "@kie-tools/dashbuilder-editor" [ style = "solid", color = "black" ];
   "@kie-tools/swf-sandbox" -> "@kie-tools/text-editor" [ style = "solid", color = "black" ];
   "@kie-tools/swf-sandbox" -> "@kie-tools-core/webpack-base" [ style = "dashed", color = "black" ];
   "@kie-tools/text-editor" -> "@kie-tools-core/editor" [ style = "solid", color = "blue" ];

@@ -127,20 +127,13 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
   const [initialContent, setInitialContent] = useState({ originalContent: INITIAL_CONTENT, path: "" });
   const [content, setContent] = useState("");
   const [showPreview, setShowPreview] = useState<boolean>(props.showEditor!);
-  const newContentRef = useRef<string>("");
-  const oldContentRef = useRef<string>("");
   const dashbuilderMonacoEditorRef = useRef<DashbuilderMonacoEditorApi>(null);
 
   useEffect(() => props.onShowPreviewChange!(showPreview), [props, showPreview]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      if (newContentRef.current !== oldContentRef.current) {
-        oldContentRef.current = newContentRef.current;
-        setContent(newContentRef.current);
-      } else if (content !== oldContentRef.current) {
-        setContent(oldContentRef.current);
-      }
+      setContent(dashbuilderMonacoEditorRef.current?.getContent() || "");
     }, UPDATE_TIME);
     return () => clearTimeout(timer);
   }, [content]);
@@ -162,28 +155,17 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
           }
         },
         getContent: (): Promise<string> => {
-          if (dashbuilderMonacoEditorRef.current) {
-            Promise.resolve(dashbuilderMonacoEditorRef.current?.getContent());
-          }
-          return Promise.resolve("");
+          return Promise.resolve(Promise.resolve(dashbuilderMonacoEditorRef.current?.getContent() || ""));
         },
         getPreview: (): Promise<string> => {
           // TODO: implement it on Dashbuilder
           return Promise.resolve("");
         },
         undo: (): Promise<void> => {
-          if (dashbuilderMonacoEditorRef.current) {
-            dashbuilderMonacoEditorRef.current.undo();
-            newContentRef.current = dashbuilderMonacoEditorRef.current.getContent()!;
-          }
-          return Promise.resolve();
+          return dashbuilderMonacoEditorRef.current?.undo() || Promise.resolve();
         },
         redo: (): Promise<void> => {
-          if (dashbuilderMonacoEditorRef.current) {
-            dashbuilderMonacoEditorRef.current.redo();
-            newContentRef.current = dashbuilderMonacoEditorRef.current.getContent()!;
-          }
-          return Promise.resolve();
+          return dashbuilderMonacoEditorRef.current?.redo() || Promise.resolve();
         },
         validate: (): Notification[] => {
           return [];
@@ -205,7 +187,6 @@ const RefForwardingDashbuilderEditor: React.ForwardRefRenderFunction<Dashbuilder
       } else if (operation === MonacoEditorOperation.REDO) {
         props.onStateControlCommandUpdate(StateControlCommand.REDO);
       }
-      newContentRef.current = newContent;
     },
     [props]
   );

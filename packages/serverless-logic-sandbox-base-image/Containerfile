@@ -33,6 +33,7 @@ RUN ./mvnw io.quarkus:quarkus-maven-plugin:create -B -ntp \
   && echo -e '\nquarkus.swagger-ui.always-include=true\nquarkus.http.host=0.0.0.0\nquarkus.http.cors=true' >> src/main/resources/application.properties \
   && rm -rf src/main/docker/ src/main/java/ src/test/  \
   && echo "" > src/main/resources/META-INF/resources/index.html \
+  && sed  -i "s/<dependencies>/<dependencies>\n    <dependency>\n      <groupId>org.kie.kogito<\/groupId>\n      <artifactId>kogito-addons-quarkus-monitoring-prometheus<\/artifactId>\n      <version>1.22.1.Final<\/version>\n    <\/dependency>/g" pom.xml \
   && ./mvnw clean package -B -ntp \
   && cp target/quarkus-app/*.jar /deployments/ \
   && cp -R target/quarkus-app/lib/ /deployments/ \

@@ -31,7 +31,7 @@ RUN ./mvnw io.quarkus:quarkus-maven-plugin:create -B -ntp \
   -DprojectVersion=0.0.0 \
   -Dextensions="kogito-quarkus-serverless-workflow,quarkus-resteasy-jackson,quarkus-jsonp,quarkus-smallrye-openapi,quarkus-resteasy,smallrye-health" \
   && cd serverless-logic-sandbox \
-  && echo -e '\nquarkus.swagger-ui.always-include=true\nquarkus.http.host=0.0.0.0\nquarkus.http.cors=true' >> src/main/resources/application.properties \
+  && echo -e '\nquarkus.http.enable-compression=true\nquarkus.swagger-ui.always-include=true\nquarkus.http.host=0.0.0.0\nquarkus.http.cors=true' >> src/main/resources/application.properties \
   && rm -rf src/main/docker/ src/main/java/ src/test/  \
   && echo "<a href='/metrics/index.html'>Metrics</a>" > src/main/resources/META-INF/resources/index.html \
   && cp -R ../metrics/ src/main/resources/META-INF/resources/ \

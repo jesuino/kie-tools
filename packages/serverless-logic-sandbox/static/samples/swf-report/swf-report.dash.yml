@@ -1,12 +1,20 @@
 properties:
   dataIndexUrl: https://your.data.index.url.com
+
+  cardTemplate: >-
+    >-
+                          <div id="${this}" class="card-pf card-pf-accented card-pf-aggregate-status" style="background-color: ${bgColor}; width: 95%; height:${height}px;">
+                            <h2 style="font-weight: 600;" id="${this}Value">${value}</h2>
+                            <p style="font-weight: 400" id="${this}Title">${title}</p>
+                          </div>
+  
 datasets:
   - uuid: processInstances
     expression: >-
       $.data.ProcessInstances.[ id, processId, processName, serviceUrl, state, $fromMillis($toMillis(start)), $fromMillis($toMillis(lastUpdate)), end ? $toMillis(end) - $toMillis(start) : -1, error ? error.message : ""]
     # Use this with real data
     # url: ${dataIndexUrl}/graphql/?query=%7B%0A%20%20ProcessInstances%20%7B%0A%20%20%20%20id%0A%20%20%20%20processId%0A%20%20%20%20processName%0A%20%20%20%20serviceUrl%0A%20%20%20%20state%0A%20%20%20%20start%0A%20%20%20%20end%0A%20%20%20%20lastUpdate%0A%20%20%20%20error%20%7B%20%20%20%20%20%20%0A%20%20%20%20%20%20message%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A
-    url: ../samples/swf-report/sampleResponse.json
+    url: /poc/swf-sandbox/samples/swf-report/sampleResponse.json
     cacheEnabled: "true"
     refreshTime: "30minute"
     columns:
@@ -38,11 +46,35 @@ pages:
               - html: "Serverless Workflow Summary <hr />"
                 properties:
                   font-size: x-large
+              - html: "Filter"
+                properties:
+                  font-weight: bolder
+              - properties:
+                  width: "150px"
+                  margin-bottom: "20px"
+                settings:
+                  type: SELECTOR
+                  general:
+                    visible: "true"
+                    text: "Filter"
+                  filter:
+                    enabled: "true"
+                    notification: "true"
+                  dataSetLookup:
+                    uuid: processInstances
+                    group:
+                      - columnGroup:
+                          source: processId
+                        groupFunctions:
+                          - source: processId
+                            column: Workflow
       - columns:
           - span: "2"
             components:
               - settings:
                   type: METRIC
+                  html:
+                    html: ${cardTemplate}
                   filter:
                     enabled: "true"
                     listening: "true"
@@ -67,6 +99,8 @@ pages:
             components:
               - settings:
                   type: METRIC
+                  html:
+                    html: ${cardTemplate}
                   filter:
                     enabled: "true"
                     listening: "true"
@@ -96,6 +130,8 @@ pages:
             components:
               - settings:
                   type: METRIC
+                  html:
+                    html: ${cardTemplate}
                   filter:
                     enabled: "true"
                     listening: "true"
@@ -125,6 +161,8 @@ pages:
             components:
               - settings:
                   type: METRIC
+                  html:
+                    html: ${cardTemplate}
                   filter:
                     enabled: "true"
                     listening: "true"
@@ -154,6 +192,8 @@ pages:
             components:
               - settings:
                   type: METRIC
+                  html:
+                    html: ${cardTemplate}
                   filter:
                     enabled: "true"
                     listening: "true"
@@ -183,6 +223,8 @@ pages:
             components:
               - settings:
                   type: METRIC
+                  html:
+                    html: ${cardTemplate}
                   filter:
                     enabled: "true"
                     listening: "true"
@@ -247,7 +289,7 @@ pages:
           - span: "4"
             properties:
               background-color: white
-            layoutComponents:
+            components:
               - html: "<strong>Workflows by Start Date</strong>"
                 properties:
                   font-size: Medium
@@ -286,7 +328,7 @@ pages:
           - span: "4"
             properties:
               background-color: white
-            layoutComponents:
+            components:
               - html: "<strong>Average Duration</strong>"
                 properties:
                   font-size: Medium
@@ -314,40 +356,20 @@ pages:
                           - source: duration
                             function: AVERAGE
                             column: Total
-      - columns:
-          - span: "12"
-            components:
-              - properties:
-                  width: "150px"
-                  margin-top: "20px"
-                  float: "right"
-                settings:
-                  type: SELECTOR
-                  general:
-                    visible: "true"
-                    text: "Filter"
-                  filter:
-                    enabled: "true"
-                    notification: "true"
-                  dataSetLookup:
-                    uuid: processInstances
-                    group:
-                      - columnGroup:
-                          source: processId
-                        groupFunctions:
-                          - source: processId
-                            column: Workflow
-          - layoutComponents:
+          - components:
               - html: "<hr />Workflows List"
                 properties:
                   font-size: x-large
                   margin-bottom: 20px
       - columns:
           - components:
-              - settings:
-                  type: TABLE
+              - settings:                
+                  component: table
                   chart:
                     resizable: "true"
+                  external:
+                    width: 100%                    
+                    height: 900px
                   table:
                     sort:
                     enabled: "true"

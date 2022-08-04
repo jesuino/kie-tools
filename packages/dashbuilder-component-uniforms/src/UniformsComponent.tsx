@@ -36,6 +36,29 @@ interface FormState {
   componentValidationError: string | undefined;
   response?: Response;
 }
+
+function convertSurveyToSchema(surveyStr: string): any {
+  const surveyResponse = JSON.parse(surveyStr);
+  const required: any[] = [];
+  const objectsMap: any = {};
+  surveyResponse.spec.forEach((s: any) => {
+    objectsMap[s.variable] = {
+      type: s.type === "text" ? "string" : s.type,
+    };
+
+    if (s.required) {
+      required.push(s.variable);
+    }
+  });
+  const schema = {
+    title: surveyResponse.title,
+    type: "object",
+    properties: objectsMap,
+    required: required,
+  };
+
+  return JSON.stringify(schema);
+}
 export function UniformsComponent(props: Props) {
   const [formState, setFormState] = useState<FormState>({
     formUrl: "",
@@ -108,7 +131,12 @@ export function UniformsComponent(props: Props) {
           schemaContent = await fetch(schemaStr)
             .then((r) => r.text())
             .catch((e) => "Error loading schema from URL");
+
+          if (schemaStr.includes("survey_spec")) {
+            schemaContent = convertSurveyToSchema(schemaContent);
+          }
         }
+        console.log(schemaContent);
         try {
           _schema = JSON.parse(schemaContent);
         } catch (e) {

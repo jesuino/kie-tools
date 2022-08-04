@@ -1,9 +1,14 @@
 {
   "init": [
     {
-      "key": "schema",
+      "key": "__schema",
       "value": "{\"title\":\"Guest\",\"type\":\"object\",\"properties\":{\"firstName\":{\"type\":\"string\"},\"lastName\":{\"type\":\"string\"},\"workExperience\":{\"description\":\"Work experience in years\",\"type\":\"integer\",\"minimum\":0,\"maximum\":100}},\"required\":[\"firstName\",\"lastName\"]}"
     },
+    {
+      "key": "schema",
+      "value": "https://raw.githubusercontent.com/jesuino/dashbuilder-data/master/ansible/sample_survey_spec.json"
+    },
+
     {
       "key": "url",
       "value": "test"

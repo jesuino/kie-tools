@@ -55,8 +55,7 @@ public class GlobalSettingsJSONMarshaller {
             try {
                 displayerSettings = DisplayerSettingsJSONMarshaller.get().fromJsonObject(displayerSettingsObj, false);
             } catch (Exception e) {
-                // ignore settings and use a global empty settings
-                displayerSettings = new DisplayerSettings();
+                // ignore settings and use a empty global settings                
             }
         }
 

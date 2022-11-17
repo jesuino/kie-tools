@@ -123,9 +123,12 @@ public class RuntimeModelJSONMarshaller {
         return extractProperties(toJsonObject(json));
     }
 
-    public GlobalSettings retrieveGlobalSettings(String json) {
-        var settingsJsonObject = toJsonObject(json).getObject(GLOBAL);
-        return GlobalSettingsJSONMarshaller.get().fromJson(settingsJsonObject);
+    GlobalSettings retrieveGlobalSettings(JsonObject json) {
+        var settingsJsonObject = json.getObject(GLOBAL);
+        if (settingsJsonObject != null) {
+            return GlobalSettingsJSONMarshaller.get().fromJson(settingsJsonObject);
+        }
+        return new GlobalSettings();
     }
 
     private JsonObject toJsonObject(String json) {
@@ -205,12 +208,15 @@ public class RuntimeModelJSONMarshaller {
         }
 
         var properties = extractProperties(jsonObject);
+        
+        var globalSettings = retrieveGlobalSettings(jsonObject); 
 
         return new RuntimeModel(navTree,
                 layoutTemplates,
                 lastModified.longValue(),
                 externalDefs,
-                properties);
+                properties,
+                globalSettings);
     }
 
     private HashMap<String, String> extractProperties(JsonObject jsonObject) {

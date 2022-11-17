@@ -35,11 +35,7 @@ public class JSONRuntimeModelClientParser implements RuntimeModelClientParser {
     public RuntimeModel parse(String jsonContent) {
         var runtimeModelJsonMarshaller = RuntimeModelJSONMarshaller.get();
         var properties = runtimeModelJsonMarshaller.retrieveProperties(jsonContent);
-        var newContent = replaceService.replace(jsonContent, properties);
-        var globalSettings = runtimeModelJsonMarshaller.retrieveGlobalSettings(jsonContent);
-        
-        globalDisplayerSettings.setDisplayerSettings(globalSettings.getSettings());
-        
+        var newContent = replaceService.replace(jsonContent, properties);        
         return runtimeModelJsonMarshaller.fromJson(newContent);
     }
 

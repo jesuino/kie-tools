@@ -13,32 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.shared.model;
 
-import org.dashbuilder.displayer.DisplayerSettings;
-import org.dashbuilder.displayer.Mode;
+package org.dashbuilder.shared.event;
+
+import org.dashbuilder.shared.model.GlobalSettings;
+import org.jboss.errai.common.client.api.annotations.MapsTo;
 import org.jboss.errai.common.client.api.annotations.Portable;
 
+/**
+ * Fired when new Global Settings are available
+ *
+ */
 @Portable
-public class GlobalSettings {
+public class UpdatedGlobalSettingsEvent {
 
-    private Mode mode = Mode.LIGHT;
-    private DisplayerSettings settings;
+    GlobalSettings globalSettings;
 
-    public Mode getMode() {
-        return mode;
+    public UpdatedGlobalSettingsEvent() {
+        // empty constructor for marshalling
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
+    public UpdatedGlobalSettingsEvent(@MapsTo("globalSettings") GlobalSettings globalSettings) {
+        this.globalSettings = globalSettings;
     }
 
-    public DisplayerSettings getSettings() {
-        return settings;
-    }
-
-    public void setSettings(DisplayerSettings settings) {
-        this.settings = settings;
+    public GlobalSettings getGlobalSettings() {
+        return globalSettings;
     }
 
 }

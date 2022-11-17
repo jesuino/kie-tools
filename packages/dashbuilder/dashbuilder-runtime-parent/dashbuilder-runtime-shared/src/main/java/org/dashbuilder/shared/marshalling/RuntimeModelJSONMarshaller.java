@@ -37,12 +37,14 @@ import org.dashbuilder.navigation.NavTree;
 import org.dashbuilder.navigation.impl.NavTreeBuilder;
 import org.dashbuilder.navigation.json.NavTreeJSONMarshaller;
 import org.dashbuilder.navigation.workbench.NavWorkbenchCtx;
+import org.dashbuilder.shared.model.GlobalSettings;
 import org.dashbuilder.shared.model.RuntimeModel;
 import org.uberfire.ext.layout.editor.api.editor.LayoutTemplate;
 
 @ApplicationScoped
 public class RuntimeModelJSONMarshaller {
 
+    private static final String GLOBAL = "global";
     private static String LAST_MODIFIED = "lastModified";
     private static String NAV_TREE = "navTree";
     private static String LAYOUT_TEMPLATES = "layoutTemplates";
@@ -121,6 +123,11 @@ public class RuntimeModelJSONMarshaller {
         return extractProperties(toJsonObject(json));
     }
 
+    public GlobalSettings retrieveGlobalSettings(String json) {
+        var settingsJsonObject = toJsonObject(json).getObject(GLOBAL);
+        return GlobalSettingsJSONMarshaller.get().fromJson(settingsJsonObject);
+    }
+
     private JsonObject toJsonObject(String json) {
         JsonObject object = null;
         try {
@@ -169,7 +176,7 @@ public class RuntimeModelJSONMarshaller {
                 try {
                     layoutTemplates.add(LayoutTemplateJSONMarshaller.get().fromJson(ltJson));
                 } catch (Exception e) {
-                    throw new RuntimeException("Error reading page " + (i+1) + "\n" + e.getMessage(), e);
+                    throw new RuntimeException("Error reading page " + (i + 1) + "\n" + e.getMessage(), e);
                 }
             }
         }
@@ -185,7 +192,8 @@ public class RuntimeModelJSONMarshaller {
                     var defJson = externalDefsArray.getObject(i).toJson();
                     externalDefs.add((ExternalDataSetDef) defMarshaller.fromJson(defJson));
                 } catch (Exception e) {
-                    throw new RuntimeException("Error reading data set definition " + (i+1) + "\n" + e.getMessage(), e);
+                    throw new RuntimeException("Error reading data set definition " + (i + 1) + "\n" + e.getMessage(),
+                            e);
                 }
             }
         }

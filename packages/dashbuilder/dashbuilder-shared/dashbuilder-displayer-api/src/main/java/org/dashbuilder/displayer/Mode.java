@@ -15,19 +15,23 @@
  */
 package org.dashbuilder.displayer;
 
-
 public enum Mode {
-    
+
     DARK,
     LIGHT;
-    
+
     public static Mode getByName(String str) {
-        if (str == null) return null;
+        if (str == null)
+            return null;
         try {
             return valueOf(str.toUpperCase());
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public String cssClassName() {
+        return this.name().toLowerCase() + "-mode";
     }
 
 }

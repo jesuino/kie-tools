@@ -47,11 +47,10 @@ public class GlobalSettingsJSONMarshaller {
         var globalSettings = new GlobalSettings();
         var mode = DEFAULT_MODE;
         var displayerSettings = new DisplayerSettings();
-        
+
         if (json != null) {
-            var modeStr = json.getString(MODE);
+            mode = retrieveMode(json);
             var displayerSettingsObj = json.getObject(LayoutTemplateJSONMarshaller.SETTINGS);
-            mode = Optional.ofNullable(Mode.getByName(modeStr)).orElse(DEFAULT_MODE);
             try {
                 displayerSettings = DisplayerSettingsJSONMarshaller.get().fromJsonObject(displayerSettingsObj, false);
             } catch (Exception e) {
@@ -64,6 +63,14 @@ public class GlobalSettingsJSONMarshaller {
         globalSettings.setMode(mode);
         return globalSettings;
 
+    }
+
+    private Mode retrieveMode(JsonObject json) {
+        if (json.has(MODE)) {
+            var modeStr = json.getString(MODE);
+            return Optional.ofNullable(Mode.getByName(modeStr)).orElse(DEFAULT_MODE);
+        }
+        return DEFAULT_MODE;
     }
 
 }

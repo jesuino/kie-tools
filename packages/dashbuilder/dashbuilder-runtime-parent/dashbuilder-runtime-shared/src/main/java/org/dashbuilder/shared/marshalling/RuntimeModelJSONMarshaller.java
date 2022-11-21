@@ -124,8 +124,10 @@ public class RuntimeModelJSONMarshaller {
     }
 
     GlobalSettings retrieveGlobalSettings(JsonObject json) {
-        var settingsJsonObject = json.getObject(GLOBAL);
-        if (settingsJsonObject != null) {
+        var settingsJson = json.get(GLOBAL);
+        if (settingsJson != null &&
+            JsonType.OBJECT == settingsJson.getType()) {
+            var settingsJsonObject = json.getObject(GLOBAL);
             return GlobalSettingsJSONMarshaller.get().fromJson(settingsJsonObject);
         }
         return new GlobalSettings();
@@ -208,8 +210,8 @@ public class RuntimeModelJSONMarshaller {
         }
 
         var properties = extractProperties(jsonObject);
-        
-        var globalSettings = retrieveGlobalSettings(jsonObject); 
+
+        var globalSettings = retrieveGlobalSettings(jsonObject);
 
         return new RuntimeModel(navTree,
                 layoutTemplates,

@@ -77,7 +77,7 @@
 }
 
 [dashbuilder-mode="dark"] .panel-body {
-  background-color: #303030 !important;
+  background-color: #191835 !important;
 }
 
 [dashbuilder-mode="dark"] .panel-heading {
@@ -93,7 +93,7 @@
 }
 
 [dashbuilder-mode="dark"] .panel-footer {
-  background-color: #464545;
+  background-color: #191835;
   border-top: 1px solid #464545;
 }
 
@@ -103,7 +103,7 @@
 
 [dashbuilder-mode="dark"] .panel-default > .panel-heading {
   color: #eef1fa;
-  background-color: #303030;
+  background-color: #191835;
   border-color: #464545;
 }
 
@@ -241,11 +241,11 @@
 }
 
 [dashbuilder-mode="dark"] .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #3d3d3d;
+  background-color: #191835;
 }
 
 [dashbuilder-mode="dark"] .table-hover > tbody > tr:hover {
-  background-color: #464545;
+  background-color: #100c2a;
 }
 
 [dashbuilder-mode="dark"] .table > thead > tr > td.active,
@@ -283,7 +283,7 @@
 [dashbuilder-mode="dark"] .table > thead > tr.success > th,
 [dashbuilder-mode="dark"] .table > tbody > tr.success > th,
 [dashbuilder-mode="dark"] .table > tfoot > tr.success > th {
-  background-color: #00bc8c;
+  background-color: #706b8f;
 }
 
 [dashbuilder-mode="dark"] .table-hover > tbody > tr > td.success:hover,
@@ -291,7 +291,7 @@
 [dashbuilder-mode="dark"] .table-hover > tbody > tr.success:hover > td,
 [dashbuilder-mode="dark"] .table-hover > tbody > tr:hover > .success,
 [dashbuilder-mode="dark"] .table-hover > tbody > tr.success:hover > th {
-  background-color: #00a379;
+  background-color: #9791b7;
 }
 
 [dashbuilder-mode="dark"] .table > thead > tr > td.info,
@@ -392,7 +392,7 @@
 
 [dashbuilder-mode="dark"] .btn-default {
   color: #eef1fa;
-  background-color: #464545;
+  background-color: #393555;
   border-color: #464545;
   background-image: none;
 }
@@ -400,13 +400,13 @@
 [dashbuilder-mode="dark"] .btn-default:focus,
 [dashbuilder-mode="dark"] .btn-default.focus {
   color: #eef1fa;
-  background-color: #2c2c2c;
+  background-color: #191835;
   border-color: #060606;
 }
 
 [dashbuilder-mode="dark"] .btn-default:hover {
   color: #eef1fa;
-  background-color: #2c2c2c;
+  background-color: #191835;
   border-color: #272727;
 }
 
@@ -414,7 +414,7 @@
 [dashbuilder-mode="dark"] .btn-default.active,
 [dashbuilder-mode="dark"] .open > .dropdown-toggle.btn-default {
   color: #eef1fa;
-  background-color: #2c2c2c;
+  background-color: #191835;
   background-image: none;
   border-color: #272727;
 }
@@ -794,18 +794,21 @@
 }
 
 [dashbuilder-mode="dark"] .nav-tabs > li > a {
-  background-color: #303030;
+  background-color: #393555;
   color: #eef1fa;
+  border: 1px solid transparent;
+  margin-right: 0px;
 }
 
 [dashbuilder-mode="dark"] .nav-tabs > li > a:hover {
   color: #eef1fa;
+  border-color: #eef1fa;
 }
 
 [dashbuilder-mode="dark"] .nav-tabs > li.active > a,
 [dashbuilder-mode="dark"] .nav-tabs > li.active > a:focus,
 [dashbuilder-mode="dark"] .nav-tabs > li.active > a:hover {
-  background-color: #111;
+  background-color: #191835;
   color: #eef1fa;
   border: 1px solid transparent;
 }
@@ -830,19 +833,19 @@ uf-navtree-widget-clicked {
 }
 
 [dashbuilder-mode="dark"] .table-striped > tbody > tr:nth-of-type(even) {
-  background-color: #111;
+  background-color: #393555;
   background-image: none;
 }
 
 [dashbuilder-mode="dark"] .table > thead {
   background-image: none;
-  background-color: black;
+  background-color: #100c2a;
   color: white;
 }
 
 [dashbuilder-mode="dark"] .dropdown-menu,
 .gwt-PopupPanel {
-  background-color: #211d3b;
+  background-color: #211d3b !important;
   color: #eef1fa;
 }
 

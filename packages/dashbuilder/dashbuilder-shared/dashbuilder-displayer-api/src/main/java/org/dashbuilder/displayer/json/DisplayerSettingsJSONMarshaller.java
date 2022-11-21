@@ -96,7 +96,7 @@ public class DisplayerSettingsJSONMarshaller {
 
         if (jsonObject == null ||
             jsonObject.getType() != JsonType.OBJECT) {
-            throw new IllegalArgumentException("Displayer Settings are not a valid object");
+            throw new IllegalArgumentException("Displayer Settings is not using a valid object");
         }
 
         // UUID

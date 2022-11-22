@@ -19,14 +19,15 @@ public enum Mode {
 
     DARK,
     LIGHT;
-
+    
+    private static Mode DEFAULT_MODE = LIGHT;
+    
     public static Mode getByName(String str) {
-        if (str == null)
-            return null;
+        if (str == null) return DEFAULT_MODE;
         try {
             return valueOf(str.toUpperCase());
         } catch (Exception e) {
-            return null;
+            return DEFAULT_MODE;
         }
     }
 

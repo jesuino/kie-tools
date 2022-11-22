@@ -203,6 +203,7 @@ export const FilteredTable = (props: Props) => {
             <Tr
               key={rowIndex}
               isHoverable={props.selectable}
+              className={isSelectedRow(row) && props.selectable ? "selected-row" : ""}
               onClick={() => {
                 if (props.selectable) {
                   if (isSelectedRow(row)) {
@@ -215,13 +216,6 @@ export const FilteredTable = (props: Props) => {
                 }
               }}
               selected={isSelectedRow(row)}
-              style={
-                isSelectedRow(row) && props.selectable
-                  ? {
-                      backgroundColor: "#DFDFDF",
-                    }
-                  : {}
-              }
             >
               {row.map((cell, cellIndex) => (
                 <Td

@@ -211,7 +211,9 @@ export const FilteredTable = (props: Props) => {
                     props.onRowSelected!(-1);
                   } else {
                     setSelectedRow(row);
-                    props.onRowSelected!(rowIndex);
+                    const selectedValue = row.join();
+                    const i = props.rows.map((r) => r.join()).findIndex((r) => r === selectedValue);
+                    props.onRowSelected!(i);
                   }
                 }
               }}

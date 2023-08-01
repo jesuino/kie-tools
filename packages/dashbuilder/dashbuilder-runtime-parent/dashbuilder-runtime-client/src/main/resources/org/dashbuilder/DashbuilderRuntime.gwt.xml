@@ -10,6 +10,7 @@
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.4.0//EN"
   "http://google-web-toolkit.googlecode.com/svn/tags/2.5.0/distro-source/core/src/gwt-module.dtd">
 <module>
+  <inherits name="org.gwtbootstrap3.GwtBootstrap3NoTheme" />    
   <inherits name="org.uberfire.UberfireAPI" />
   <inherits name="org.uberfire.UberfireClientAPI" />
   <inherits name="org.uberfire.UberfireWorkbench" />
@@ -31,7 +32,6 @@
   <inherits name="org.dashbuilder.NavigationClient" />
 
   <inherits name="org.dashbuilder.renderer.DefaultRenderer" />
-  <inherits name="org.dashbuilder.renderer.C3Renderer" />
   <inherits name="org.dashbuilder.renderer.EChartsRenderer" />
 
   <source path="client" />

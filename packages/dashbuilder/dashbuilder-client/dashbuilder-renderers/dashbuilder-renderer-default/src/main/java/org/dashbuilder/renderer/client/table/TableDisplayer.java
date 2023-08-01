@@ -74,10 +74,6 @@ public class TableDisplayer extends AbstractGwtDisplayer<TableDisplayer.View> {
 
         void setColumnPickerEnabled(boolean enabled);
 
-        void setExportToCsvEnabled(boolean enabled);
-
-        void setExportToXlsEnabled(boolean enabled);
-
         void addColumn(ColumnType columnType, String columnId, String columnName, int index, boolean selectEnabled, boolean sortEnabled);
 
         void gotoFirstPage();
@@ -217,8 +213,6 @@ public class TableDisplayer extends AbstractGwtDisplayer<TableDisplayer.View> {
         view.setTotalRows(totalRows, isTotalRowsExact(dataSet, totalRows));
         view.setPagerEnabled(isPagerEnabled(dataSet, totalRows));
         view.setColumnPickerEnabled(displayerSettings.isTableColumnPickerEnabled());
-        view.setExportToCsvEnabled(displayerSettings.isCSVExportAllowed());
-        view.setExportToXlsEnabled(displayerSettings.isExcelExportAllowed());
         
         if(displayerSettings.isResizable()) {
             view.fullWidth();

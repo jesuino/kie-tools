@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Red Hat, Inc. and/or its affiliates.
+ * Copyright 2023 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.uberfire.client.workbench.widgets.common;
 
-package org.uberfire.client.workbench.widgets.dnd;
+import javax.enterprise.context.Dependent;
 
-import org.uberfire.client.workbench.BeanFactory;
+import elemental2.dom.DomGlobal;
+import org.uberfire.mvp.Command;
 
-public class WorkbenchDragAndDropManagerUnitTestWrapper extends WorkbenchDragAndDropManager {
+@Dependent
+public class ErrorPopupPresenterView implements ErrorPopupPresenter.View {
 
-    public void setupMocks(WorkbenchPickupDragController dragController,
-                           BeanFactory factory) {
-        this.dragController = dragController;
-        this.factory = factory;
+    @Override
+    public void showMessage(String msg, Command afterShow, Command afterClose) {
+        // TODO: Implement This
+        DomGlobal.alert(msg);
+        
+        
     }
+
 }

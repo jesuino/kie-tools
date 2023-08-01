@@ -35,6 +35,5 @@
   <modules>
     <module>uberfire-widgets-commons</module>
     <module>uberfire-widgets-core</module>
-    <module>uberfire-widgets-table</module>
   </modules>
 </project>

@@ -2,20 +2,36 @@
   <div>
     <span data-field="titleSpan"></span>
   </div>
-  <div data-field="dropDownDiv" class="dropdown btn-group selector-ddown-container">
-    <button
-      data-field="dropDownButton"
-      class="btn btn-default dropdown-toggle selector-ddown-button"
-      type="button"
-      data-toggle="dropdown"
-      aria-expanded="false"
-    >
-      <div data-field="dropDownText" class="selector-ddown-text"></div>
-      <span class="caret selector-ddown-caret"></span>
+  <div data-field="dropDownDiv" class="selector-ddown-container">
+    <button class="pf-v5-c-menu-toggle" type="button" aria-expanded="false" data-field="dropDownButton">
+      <span class="pf-v5-c-menu-toggle__text" data-field="dropDownText"></span>
+      <span class="pf-v5-c-menu-toggle__controls selector-ddown-caret">
+        <span class="pf-v5-c-menu-toggle__toggle-icon">
+          <svg
+            class="pf-v5-svg"
+            viewBox="0 0 320 512"
+            fill="currentColor"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+          >
+            <path
+              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+            ></path>
+          </svg>
+        </span>
+      </span>
     </button>
-    <ul data-field="dropDownMenu" class="dropdown-menu selector-ddown-menu" role="menu"></ul>
-    <ul data-field="resetMenu" class="dropdown-menu" role="menu">
-      <a data-field="resetAnchor" class="selector-ddown-reset-anchor">Clear All</a>
-    </ul>
+    <!-- Items Container -->
+    <div class="pf-v5-c-menu__content">
+      <ul
+        role="listbox"
+        aria-multiselectable="false"
+        class="pf-v5-c-menu__list selector-ddown-menu"
+        style="display: none; position: absolute; z-index: 99999"
+        data-field="dropDownMenu"
+      ></ul>
+    </div>
   </div>
 </div>

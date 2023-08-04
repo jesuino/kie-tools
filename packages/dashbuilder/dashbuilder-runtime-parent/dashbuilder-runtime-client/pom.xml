@@ -46,6 +46,11 @@
         <artifactId>jsonata</artifactId>
         <version>${version.org.webjars.npm.jsonata}</version>
       </dependency>
+      <dependency>
+        <groupId>org.webjars.npm</groupId>
+        <artifactId>patternfly__patternfly</artifactId>
+        <version>${version.org.webjars.npm.patternfly}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -81,6 +86,11 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-patternfly</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.dashbuilder</groupId>
@@ -316,6 +326,11 @@
     </dependency>
     <dependency>
       <groupId>org.webjars.npm</groupId>
+      <artifactId>patternfly__patternfly</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.webjars.npm</groupId>
       <artifactId>js-yaml</artifactId>
       <scope>provided</scope>
     </dependency>
@@ -399,6 +414,7 @@
             <compileSourcesArtifact>org.dashbuilder:dashbuilder-services-api</compileSourcesArtifact>
             <compileSourcesArtifact>org.kie.soup:kie-soup-dataset-api</compileSourcesArtifact>
             <compileSourcesArtifact>org.kie.soup:kie-soup-dataset-shared</compileSourcesArtifact>
+            <compileSourcesArtifact>org.dashbuilder:dashbuilder-patternfly</compileSourcesArtifact>
             <compileSourcesArtifact>org.dashbuilder:dashbuilder-displayer-api</compileSourcesArtifact>
             <compileSourcesArtifact>org.dashbuilder:dashbuilder-displayer-client</compileSourcesArtifact>
             <compileSourcesArtifact>org.dashbuilder:dashbuilder-displayer-editor</compileSourcesArtifact>
@@ -497,6 +513,27 @@
             </configuration>
           </execution>
           <execution>
+            <id>unpack-patternfly</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>org.webjars.npm</groupId>
+		  <artifactId>patternfly__patternfly</artifactId>
+                  <version>${version.org.webjars.npm.patternfly}</version>
+                  <type>jar</type>
+                  <overWrite>true</overWrite>
+                  <outputDirectory>${project.build.directory}/patternfly</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+            </configuration>
+          </execution>
+          <execution>
             <id>unpack-js-yaml</id>
             <phase>process-resources</phase>
             <goals>
@@ -533,10 +570,28 @@
 	      <outputDirectory>${project.build.outputDirectory}/org/dashbuilder/client/resources/js</outputDirectory>
               <resources>
                 <resource>
-                  <directory
-                  >${project.build.directory}/jsonata/META-INF/resources/webjars/jsonata/${version.org.webjars.npm.jsonata}</directory>
+                  <directory>${project.build.directory}/jsonata/META-INF/resources/webjars/jsonata/${version.org.webjars.npm.jsonata}</directory>
                   <includes>
                     <include>jsonata.min.js</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-patternfly-resources</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+	      <outputDirectory>${project.build.directory}/${project.build.finalName}/org.dashbuilder.DashbuilderRuntime/css</outputDirectory>
+              <resources>
+                <resource>
+			<directory>${project.build.directory}/patternfly/META-INF/resources/webjars/patternfly__patternfly/${version.org.webjars.npm.patternfly}</directory>
+                  <includes>
+                    <include>patternfly.min.css</include>
+		    <include>assets/</include>
                   </includes>
                 </resource>
               </resources>

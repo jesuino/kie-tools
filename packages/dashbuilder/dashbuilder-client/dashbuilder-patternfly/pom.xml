@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  ~ Copyright 2014 Red Hat, Inc. and/or its affiliates.
+  ~ Copyright 2023 Red Hat, Inc. and/or its affiliates.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -19,46 +19,43 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 >
+
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.dashbuilder</groupId>
-    <artifactId>dashbuilder-parent</artifactId>
+    <artifactId>dashbuilder-client</artifactId>
     <version>${revision}</version>
-    <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <artifactId>dashbuilder-client</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>dashbuilder-patternfly</artifactId>
+  <packaging>jar</packaging>
 
-  <name>Dashbuilder Client modules</name>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.dashbuilder</groupId>
-        <artifactId>dashbuilder-bom</artifactId>
-        <version>${project.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <modules>
-    <module>dashbuilder-patternfly</module>
-    <module>dashbuilder-common-client</module>
-    <module>dashbuilder-dataset-client</module>
-    <module>dashbuilder-displayer-client</module>
-    <module>dashbuilder-displayer-editor</module>
-    <module>dashbuilder-renderers</module>
-    <module>dashbuilder-navigation-client</module>
-  </modules>
+  <name>Dashbuilder Patternfly</name>
 
   <dependencies>
+
     <dependency>
-      <groupId>jakarta.inject</groupId>
-      <artifactId>jakarta.inject-api</artifactId>
+      <groupId>org.jboss.errai</groupId>
+      <artifactId>errai-common</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.errai</groupId>
+      <artifactId>errai-ioc</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.errai</groupId>
+      <artifactId>errai-ui</artifactId>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
+
 </project>

@@ -15,49 +15,37 @@
  */
 package org.dashbuilder.renderer.client.table;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import com.google.gwt.cell.client.TextCell;
-import com.google.gwt.cell.client.ValueUpdater;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.NativeEvent;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.AsyncDataProvider;
-import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.Range;
+import javax.inject.Inject;
+
+import elemental2.dom.CSSProperties.HeightUnionType;
+import elemental2.dom.CSSProperties.WidthUnionType;
+import jsinterop.base.Js;
 import org.dashbuilder.common.client.widgets.FilterLabelSet;
 import org.dashbuilder.dataset.ColumnType;
-import org.dashbuilder.displayer.client.AbstractGwtDisplayerView;
+import org.dashbuilder.displayer.client.AbstractErraiDisplayerView;
+import org.dashbuilder.patternfly.table.Table;
 import org.dashbuilder.renderer.client.resources.i18n.TableConstants;
+import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 
-import static com.google.gwt.dom.client.BrowserEvents.CLICK;
-import static com.google.gwt.dom.client.BrowserEvents.MOUSEOVER;
+public class TableDisplayerView extends AbstractErraiDisplayerView<TableDisplayer> implements TableDisplayer.View {
 
-public class TableDisplayerView extends AbstractGwtDisplayerView<TableDisplayer> implements TableDisplayer.View {
-
-    protected HTML titleHtml = new HTML();
-    protected TableProvider tableProvider = new TableProvider();
-    protected VerticalPanel rootPanel = new VerticalPanel();
+    @Inject
     protected Table table;
+
+    @Inject
+    Elemental2DomUtil elemental2DomUtil;
 
     @Override
     public void init(TableDisplayer presenter) {
         super.setPresenter(presenter);
-        super.setVisualization(rootPanel);
-        rootPanel.add(titleHtml);
+        super.setVisualization(Js.cast(table.getElement()));
     }
 
     @Override
     public void showTitle(String title) {
-        titleHtml.setText(title);
+        table.setTitle(title);
     }
 
     @Override
@@ -72,48 +60,37 @@ public class TableDisplayerView extends AbstractGwtDisplayerView<TableDisplayer>
 
     @Override
     public void createTable(int pageSize, FilterLabelSet filterLabelSet) {
-        table = new Table();
-        tableProvider.lastPageSize = pageSize;
-
-        rootPanel.add(table);
+        // TODO: 
     }
 
     @Override
-    public void redrawTable() {
-        table.redraw();
+    public void redrawTable(List<String> columnsNames, String[][] data) {
+        table.setData(columnsNames, data, 0, 0);
     }
 
     @Override
     public void setWidth(int width) {
-        table.setWidth(width + "px");
+        table.getElement().style.width = WidthUnionType.of(width + "px");
+    }
+
+    @Override
+    public void setHeight(int chartHeight) {
+        table.getElement().style.height = HeightUnionType.of(chartHeight + "px");
     }
 
     @Override
     public void fullWidth() {
-        table.setWidth("100%");
-        rootPanel.setWidth("100%");
+        table.getElement().style.width = WidthUnionType.of("100%");
     }
 
     @Override
     public void setSortEnabled(boolean enabled) {
-        table.setSortEnabled(enabled);
-    }
-
-    @Override
-    public void setTotalRows(int rows, boolean isExact) {
-        if (table != null) {
-            table.setRowCount(rows, isExact);
-        }
-    }
-
-    @Override
-    public void setPagerEnabled(boolean enabled) {
-        table.setPagerVisible(enabled);
+        //table.setSortEnabled(enabled);
     }
 
     @Override
     public void setColumnPickerEnabled(boolean enabled) {
-        table.setColumnPickerButtonVisible(enabled);
+        //table.setColumnPickerButtonVisible(enabled);
     }
 
     @Override
@@ -123,176 +100,19 @@ public class TableDisplayerView extends AbstractGwtDisplayerView<TableDisplayer>
                           int index,
                           boolean selectEnabled,
                           boolean sortEnabled) {
-        Column<Integer, ?> column = createColumn(columnType, columnId, selectEnabled, index);
-        if (column != null) {
-            column.setSortable(sortEnabled);
-            table.addColumn(column, columnName);
-        }
+        // TODO:
+
     }
 
     @Override
     public void gotoFirstPage() {
-        tableProvider.gotoFirstPage();
+        // TODO: implement
     }
 
     @Override
-    public int getLastOffset() {
-        return tableProvider.lastOffset;
+    public void setTotalRows(int rows) {
+        // TODO Auto-generated method stub
+
     }
 
-    @Override
-    public int getPageSize() {
-        return tableProvider.lastPageSize;
-    }
-
-    @Override
-    public void exportNoData() {
-        Window.alert(TableConstants.INSTANCE.tableDisplayer_export_no_data());
-    }
-
-    @Override
-    public void exportTooManyRows(int rowNum, int limit) {
-        Window.alert(TableConstants.INSTANCE.tableDisplayer_export_too_many_rows(rowNum, limit));
-    }
-
-    @Override
-    public void exportFileUrl(String url) {
-        Window.open(url, "downloading", "resizable=no,scrollbars=yes,status=no");
-    }
-
-    // Table internals
-
-    protected Column<Integer, ?> createColumn(ColumnType type,
-                                              String columnId,
-                                              final boolean selectable,
-                                              final int columnNumber) {
-
-        switch (type) {
-            case LABEL:
-                return new Column<Integer, String>(new DataColumnCell(columnId, selectable)) {
-
-                    public String getValue(Integer row) {
-                        return getPresenter().formatValue(row, columnNumber);
-                    }
-                };
-
-            case NUMBER:
-            case DATE:
-            case TEXT:
-                return new Column<Integer, String>(new DataColumnCell(columnId, selectable)) {
-
-                    public String getValue(Integer row) {
-                        return getPresenter().formatValue(row, columnNumber);
-                    }
-                };
-        }
-        return null;
-    }
-
-    protected class DataColumnCell extends TextCell {
-
-        private String columnId;
-        private boolean selectable = false;
-
-        DataColumnCell(String columnId, boolean selectable) {
-            this.columnId = columnId;
-            this.selectable = selectable;
-        }
-
-        @Override
-        public Set<String> getConsumedEvents() {
-            Set<String> consumedEvents = new HashSet<String>();
-            if (selectable) {
-                consumedEvents.add(CLICK);
-                consumedEvents.add(MOUSEOVER);
-            }
-            return consumedEvents;
-        }
-
-        @Override
-        public void onBrowserEvent(Context context,
-                                   Element parent,
-                                   String value,
-                                   NativeEvent event,
-                                   ValueUpdater<String> valueUpdater) {
-
-            if (selectable) {
-                String eventType = event.getType();
-                switch (eventType) {
-
-                    case MOUSEOVER:
-                        parent.getStyle().setCursor(Style.Cursor.POINTER);
-                        break;
-
-                    case CLICK:
-                        int rowIndexInPage = context.getIndex() - table.getPageStart();
-                        getPresenter().selectCell(columnId, rowIndexInPage);
-                        break;
-                }
-            }
-        }
-    }
-
-    /**
-     * The table data provider
-     */
-    protected class TableProvider extends AsyncDataProvider<Integer> {
-
-        protected int lastOffset = 0;
-        protected int lastPageSize = 0;
-
-        protected List<Integer> getCurrentPageRows(HasData<Integer> display) {
-            final int start = display.getVisibleRange().getStart();
-            int pageSize = display.getVisibleRange().getLength();
-            int items = Integer.min(pageSize, table.getRowCount() > start ? table.getRowCount() - start : table
-                    .getRowCount());
-            return IntStream.range(0, items).boxed().collect(Collectors.toList());
-        }
-
-        /**
-         * Both filter & sort invoke this method from redraw()
-         */
-        public void gotoFirstPage() {
-            // Avoid fetching the data set again
-            lastOffset = 0;
-            lastPageSize = table.getVisibleRange().getLength();
-
-            // This calls internally to onRangeChanged() when the page changes
-            table.setPage(0);
-
-        }
-
-        /**
-         * Invoked from createWidget just after the data set has been fetched.
-         */
-        public void addDataDisplay(HasData<Integer> display) {
-            // Avoid fetching the data set again
-            lastOffset = 0;
-            lastPageSize = table.getVisibleRange().getLength();
-
-            // This calls internally to onRangeChanged()
-            super.addDataDisplay(display);
-        }
-
-        /**
-         * This is invoked internally by the PagedTable on navigation actions.
-         */
-        protected void onRangeChanged(final HasData<Integer> display) {
-            final Range range = display.getVisibleRange();
-            if (lastOffset == range.getStart() && range.getLength() <= lastPageSize) {
-                lastPageSize = range.getLength();
-                if (table.getRowCount() > range.getLength()) {
-                    setPagerEnabled(true);
-                }
-                updateRowData(lastOffset, getCurrentPageRows(display));
-            } else {
-                lastOffset = range.getStart();
-                lastPageSize = range.getLength();
-                getPresenter().lookupCurrentPage(rowsFetched -> {
-                    final List<Integer> rows = getCurrentPageRows(display);
-                    updateRowData(lastOffset, rows);
-                });
-            }
-        }
-    }
 }

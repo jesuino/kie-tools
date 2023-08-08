@@ -41,7 +41,6 @@ public class DisplayerCoordinator {
 
     protected List<Displayer> displayerList = new ArrayList<>();
     protected Set<DisplayerListener> listenerSet = new HashSet<>();
-    protected Map<RendererLibrary,List<Displayer>> rendererMap = new HashMap<>();
     protected CoordinatorListener coordinatorListener = new CoordinatorListener();
     protected Map<Displayer,List<Displayer>> notificationVetoMap = new HashMap<>();
     protected RendererManager rendererManager;

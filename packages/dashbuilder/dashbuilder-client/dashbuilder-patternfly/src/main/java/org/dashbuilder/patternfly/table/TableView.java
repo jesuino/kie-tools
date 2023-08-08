@@ -70,23 +70,26 @@ public class TableView implements Table.View {
     public void init(Table presenter) {
         this.presenter = presenter;
         tableContainer.appendChild(pagination.getElement());
+        pagination.setOnPageChange(presenter::showPage);
     }
 
     @Override
-    public void setData(List<String> columns, String[][] data) {
+    public void setColumns(List<String> columns) {
         util.removeAllElementChildren(tblHeadRow);
-        util.removeAllElementChildren(tblBody);
         columns.stream().map(this::createHeaderCell).forEach(tblHeadRow::appendChild);
+    }
+
+    @Override
+    public void setData(String[][] data) {
+        util.removeAllElementChildren(tblBody);
         for (int i = 0; i < data.length; i++) {
             var row = createBodyRow();
             for (int j = 0; j < data[i].length; j++) {
-                var header = columns.get(j);
-                var cell = createTableCell(header, data[i][j]);
+                var cell = createTableCell(data[i][j]);
                 row.appendChild(cell);
             }
             tblBody.appendChild(row);
         }
-
     }
 
     @Override
@@ -98,7 +101,7 @@ public class TableView implements Table.View {
     public void setTitle(String title) {
         tblCaption.textContent = title;
     }
-    
+
     Element createHeaderCell(String header) {
         var th = DomGlobal.document.createElement("th");
         th.setAttribute("role", "columnheader");
@@ -115,12 +118,16 @@ public class TableView implements Table.View {
         return tr;
     }
 
-    Element createTableCell(String header, String content) {
+    Element createTableCell(String content) {
         var td = DomGlobal.document.createElement("td");
-        td.setAttribute("data.label", header);
         td.classList.add("pf-v5-c-table__td");
         td.textContent = content;
         return td;
+    }
+
+    @Override
+    public void setPagination(int nRows, int pageSize) {
+        pagination.setPagination(nRows, pageSize);
     }
 
 }

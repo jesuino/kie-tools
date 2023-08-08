@@ -50,7 +50,7 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
 
         void createTable(int pageSize, FilterLabelSet widget);
 
-        void redrawTable(List<String> columnsNames, String[][] data);
+        void redrawTable(List<String> columnsNames, String[][] data, int pageSize);
 
         void setWidth(int width);
 
@@ -162,7 +162,7 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
 
         view.setTotalRows(totalRows);
         view.gotoFirstPage();
-        view.redrawTable(columnsNames, data);
+        view.redrawTable(columnsNames, data, displayerSettings.getTablePageSize());
         updateFilterStatus();
 
     }

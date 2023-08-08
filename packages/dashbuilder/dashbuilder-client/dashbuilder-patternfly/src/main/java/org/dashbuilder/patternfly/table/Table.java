@@ -15,8 +15,10 @@
  */
 package org.dashbuilder.patternfly.table;
 
+import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
@@ -26,15 +28,28 @@ import org.uberfire.client.mvp.UberElemental;
 @Dependent
 public class Table {
 
+    private static final int DEFAULT_PAGE_SIZE = 20;
     @Inject
     View view;
+    private String[][] data;
+    private int pageSize;
+    private List<String> columns;
 
     public interface View extends UberElemental<Table> {
 
         void setTitle(String title);
 
-        void setData(List<String> columns, String[][] data);
+        void setData(String[][] data);
 
+        void setColumns(List<String> columns);
+
+        void setPagination(int nRows, int nPages);
+
+    }
+
+    @PostConstruct
+    public void init() {
+        view.init(this);
     }
 
     public HTMLElement getElement() {
@@ -44,12 +59,32 @@ public class Table {
     public void setTitle(String title) {
         view.setTitle(title);
     }
-    
-    public void setData(List<String> columns,
+
+    public void buildTable(List<String> columns,
                            String[][] data,
-                           int nRows,
                            int pageSize) {
-        view.setData(columns, data);
+        this.columns = columns;
+        this.data = data;
+        this.pageSize = pageSize > 1 ? pageSize : DEFAULT_PAGE_SIZE;
+        view.setColumns(columns);
+        view.setPagination(data.length, this.pageSize);
+        showPage(1);
+    }
+
+    public void showPage(int page) {
+        var begin = pageSize * (page - 1);
+        var end = pageSize * page;
+
+        if (begin < 0) {
+            begin = 0;
+        }
+
+        if (end > data.length) {
+            end = data.length;
+        }
+
+        var pagedData = Arrays.copyOfRange(data, begin, end);
+        view.setData(pagedData);
     }
 
 }

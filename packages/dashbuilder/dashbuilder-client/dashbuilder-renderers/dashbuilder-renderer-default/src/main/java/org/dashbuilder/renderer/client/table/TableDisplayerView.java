@@ -64,8 +64,8 @@ public class TableDisplayerView extends AbstractErraiDisplayerView<TableDisplaye
     }
 
     @Override
-    public void redrawTable(List<String> columnsNames, String[][] data) {
-        table.setData(columnsNames, data, 0, 0);
+    public void redrawTable(List<String> columnsNames, String[][] data, int pageSize) {
+        table.buildTable(columnsNames, data, pageSize);
     }
 
     @Override

@@ -17,6 +17,7 @@ package org.dashbuilder.patternfly.pagination;
 
 import java.util.function.Consumer;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
@@ -31,21 +32,42 @@ public class Pagination {
 
     private Consumer<Integer> onPageChange;
 
+    private int currentPage;
+
     public interface View extends UberElemental<Pagination> {
 
-    }
-
-    void selectPage(int pageNumber) {
-        // TODO Auto-generated method stub
+        void setup(int nRows,
+                  int pageSize);
 
     }
+    
+    @PostConstruct
+    public void init() {
+        view.init(this);
+    }
 
-    public void onPageChange(Consumer<Integer> onPageChangeAction) {
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setOnPageChange(Consumer<Integer> onPageChangeAction) {
         this.onPageChange = onPageChangeAction;
     }
 
     public HTMLElement getElement() {
         return this.view.getElement();
+    }
+
+    void selectPage(int pageNumber) {
+        this.currentPage = pageNumber;
+        if (onPageChange != null) {
+            onPageChange.accept(pageNumber);
+        }
+    }
+
+    public void setPagination(int nRows,
+                              int pageSize) {
+        view.setup(nRows, pageSize);
     }
 
 }

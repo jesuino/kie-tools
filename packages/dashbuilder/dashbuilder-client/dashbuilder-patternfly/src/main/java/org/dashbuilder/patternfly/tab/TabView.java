@@ -13,33 +13,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.tab;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class TabView implements Tab.View {
 
-    private Slider presenter;
+    private Tab presenter;
+
+    @Inject
+    @DataField
+    HTMLLIElement tabItem;
+
+    @Inject
+    @DataField
+    HTMLButtonElement tabButton;
+
+    @Inject
+    @DataField
+    @Named("span")
+    HTMLElement tabTitle;
 
     @Inject
     Elemental2DomUtil util;
 
     @Override
-    public void init(Slider presenter) {
+    public void init(Tab presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public HTMLElement getElement() {
-        // TODO Auto-generated method stub
-        return null;
+        return tabItem;
+    }
+
+    @EventHandler("tabButton")
+    public void onTabClick(ClickEvent event) {
+        presenter.onTabClick();
+    }
+    
+    public void setTitle(String title) {
+        tabTitle.textContent = title;
     }
 
 }

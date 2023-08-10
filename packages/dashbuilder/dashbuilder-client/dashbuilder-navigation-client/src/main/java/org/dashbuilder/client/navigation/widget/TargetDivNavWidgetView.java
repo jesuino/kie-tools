@@ -31,6 +31,8 @@ import org.uberfire.mvp.Command;
 
 public abstract class TargetDivNavWidgetView<T extends TargetDivNavWidget> extends BaseNavWidgetView<T>
                                             implements TargetDivNavWidget.View<T> {
+    
+    private static final String PF5_SELECTED_CLASS = "pf-m-current";
 
     AlertBox alertBox;
 
@@ -124,5 +126,13 @@ public abstract class TargetDivNavWidgetView<T extends TargetDivNavWidget> exten
             }
         }
         return targetDiv;
+    }
+    
+    protected void selectItem(elemental2.dom.Element parent, elemental2.dom.Element selected) {
+        parent.childNodes.forEach((currentValue, currentIndex, listObj) -> {
+            ((elemental2.dom.Element) currentValue).classList.remove(PF5_SELECTED_CLASS);
+            return null;
+        });
+        selected.classList.add(PF5_SELECTED_CLASS);
     }
 }

@@ -13,33 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.alert;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import elemental2.dom.HTMLElement;
-import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
-import org.jboss.errai.ui.shared.api.annotations.Templated;
+import org.uberfire.client.mvp.UberElemental;
 
 @Dependent
-@Templated
-public class SliderView implements Slider.View {
-
-    private Slider presenter;
+public class Alert {
 
     @Inject
-    Elemental2DomUtil util;
+    View view;
 
-    @Override
-    public void init(Slider presenter) {
-        this.presenter = presenter;
+    public interface View extends UberElemental<Alert> {
+
+        public void setup(AlertType type, String content);
     }
 
-    @Override
+    @PostConstruct
+    public void init() {
+        view.init(this);
+    }
+
+    public void setup(AlertType type, String content) {
+        view.setup(type, content);
+    }
+    
     public HTMLElement getElement() {
-        // TODO Auto-generated method stub
-        return null;
+        return view.getElement();
     }
 
 }

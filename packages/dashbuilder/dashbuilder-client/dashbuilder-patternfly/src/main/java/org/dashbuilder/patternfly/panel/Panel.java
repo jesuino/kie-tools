@@ -13,27 +13,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.panel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import elemental2.dom.Element;
+import elemental2.dom.HTMLElement;
 import org.uberfire.client.mvp.UberElemental;
 
 @Dependent
-public class Slider {
+public class Panel {
 
     @Inject
     View view;
-    
-    public interface View extends UberElemental<Slider> {
+    boolean collapsed;
+
+    public interface View extends UberElemental<Panel> {
+
+        void collapse();
+
+        void show();
+
+        void setContent(Element element);
+
+        void setTitle(String title);
 
     }
-    
+
     @PostConstruct
     public void init() {
         view.init(this);
+        collapsed = false;
+        updateView();
+    }
+
+    public void collapseAction() {
+        collapsed = !collapsed;
+        updateView();
+    }
+
+    public void setContent(Element element) {
+        view.setContent(element);
+    }
+
+    private void updateView() {
+        if (collapsed) {
+            view.collapse();
+        } else {
+            view.show();
+        }
+    }
+
+    public void setTitle(String title) {
+        view.setTitle(title);
+    }
+
+    public HTMLElement getElement() {
+        return view.getElement();
     }
 
 }

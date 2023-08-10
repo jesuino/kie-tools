@@ -13,33 +13,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.alert;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLParagraphElement;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class AlertView implements Alert.View {
 
-    private Slider presenter;
+    private Alert presenter;
 
     @Inject
     Elemental2DomUtil util;
 
+    @Inject
+    @DataField
+    HTMLDivElement alertContainer;
+
+    @Inject
+    @DataField
+    @Named("i")
+    HTMLElement alertIcon;
+
+    @Inject
+    @DataField
+    HTMLParagraphElement alertText;
+
     @Override
-    public void init(Slider presenter) {
+    public void init(Alert presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public HTMLElement getElement() {
-        // TODO Auto-generated method stub
-        return null;
+        return alertContainer;
+    }
+
+    public void setup(AlertType type, String content) {
+        alertIcon.classList.add(type.getIcon());
+        alertContainer.classList.add(type.getClassName());
+        alertText.textContent = content;
     }
 
 }

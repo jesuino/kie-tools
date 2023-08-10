@@ -19,19 +19,28 @@ package org.dashbuilder.client.navigation.widget;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Label;
+import elemental2.dom.HTMLElement;
+import jsinterop.base.Js;
 import org.dashbuilder.client.navigation.plugin.PerspectivePluginManager;
-import org.gwtbootstrap3.client.ui.PanelCollapse;
-import org.gwtbootstrap3.client.ui.PanelGroup;
-import org.gwtbootstrap3.client.ui.PanelHeader;
-import org.gwtbootstrap3.client.ui.constants.Toggle;
+import org.dashbuilder.patternfly.alert.Alert;
+import org.dashbuilder.patternfly.alert.AlertType;
+import org.dashbuilder.patternfly.panel.Panel;
+import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.common.client.ui.ElementWrapperWidget;
 import org.uberfire.ext.layout.editor.client.api.LayoutDragComponent;
 import org.uberfire.ext.layout.editor.client.api.RenderingContext;
 
 @ApplicationScoped
 public class PanelLayoutDragComponent implements LayoutDragComponent {
+
+    @Inject
+    Panel panel;
+
+    @Inject
+    Alert alert;
+
+    Elemental2DomUtil domUtil;
 
     public static final String PAGE_NAME_PARAMETER = "Page Name";
     PerspectivePluginManager perspectivePluginManager;
@@ -43,30 +52,23 @@ public class PanelLayoutDragComponent implements LayoutDragComponent {
 
     @Override
     public IsWidget getShowWidget(RenderingContext ctx) {
-        PanelHeader header = GWT.create(PanelHeader.class);
-        PanelCollapse panel = GWT.create(PanelCollapse.class);
-        PanelGroup group = GWT.create(PanelGroup.class);
-
         var perspectiveId = ctx.getComponent().getProperties().get(PAGE_NAME_PARAMETER);
         if (perspectiveId == null) {
-            return null;
+            panel.setTitle(perspectiveId + "  not found.");
+            panel.setContent(alert("Page '" + perspectiveId + "' not found."));
+        } else {
+            panel.setTitle(perspectiveId);
+            perspectivePluginManager.buildPerspectiveWidget(perspectiveId,
+                    page -> panel.setContent(Js.cast(page.asWidget().getElement())),
+                    issue -> panel.setContent(alert("Error with infinite recursion. Review the embedded page")));
         }
 
-        perspectivePluginManager.buildPerspectiveWidget(perspectiveId,
-                panel::add,
-                issue -> panel.add(new Label("Error with infinite recursion. Review the embedded page")));
+        return ElementWrapperWidget.getWidget(panel.getElement());
+    }
 
-        header.setDataTargetWidget(panel);
-        header.setDataToggle(Toggle.COLLAPSE);
-        header.setText(perspectiveId);
-
-        panel.setToggle(true);
-
-        group.add(header);
-        group.add(panel);
-        group.asWidget().getElement().addClassName("uf-perspective-col");
-
-        return group;
+    public HTMLElement alert(String message) {
+        alert.setup(AlertType.WARNING, message);
+        return alert.getElement();
     }
 
 }

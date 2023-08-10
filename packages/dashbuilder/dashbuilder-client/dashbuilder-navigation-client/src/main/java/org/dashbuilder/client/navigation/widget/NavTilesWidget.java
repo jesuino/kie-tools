@@ -27,7 +27,6 @@ import org.dashbuilder.client.navigation.plugin.PerspectivePluginManager;
 import org.dashbuilder.navigation.NavGroup;
 import org.dashbuilder.navigation.NavItem;
 import org.dashbuilder.navigation.layout.LayoutRecursionIssue;
-import org.dashbuilder.navigation.layout.LayoutRecursionIssueI18n;
 import org.dashbuilder.navigation.layout.LayoutTemplateContext;
 import org.dashbuilder.navigation.workbench.NavWorkbenchCtx;
 import org.jboss.errai.common.client.api.IsElement;
@@ -44,7 +43,7 @@ import org.uberfire.workbench.model.ActivityResourceType;
 @Dependent
 public class NavTilesWidget extends BaseNavWidget {
 
-    public interface View extends NavWidgetView<NavTilesWidget>, LayoutRecursionIssueI18n {
+    public interface View extends NavWidgetView<NavTilesWidget>, ClientLayoutRecursionIssueI18n {
 
         void addTileWidget(IsElement tileWidget);
 

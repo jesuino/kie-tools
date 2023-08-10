@@ -13,27 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.menu;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import elemental2.dom.Element;
 import org.uberfire.client.mvp.UberElemental;
 
 @Dependent
-public class Slider {
+public class MenuItem {
 
     @Inject
     View view;
-    
-    public interface View extends UberElemental<Slider> {
 
+    private Runnable selectAction;
+
+    public interface View extends UberElemental<MenuItem> {
+
+        void setText(String title);
     }
-    
+
     @PostConstruct
     public void init() {
         view.init(this);
+    }
+
+    public void setOnSelect(Runnable action) {
+        this.selectAction = action;
+
+    }
+
+    public Element getElement() {
+        return view.getElement();
+    }
+
+    public void onItemClick() {
+        if (selectAction != null) {
+            selectAction.run();
+        }
+    }
+
+    public void setText(String title) {
+        this.view.setText(title);
     }
 
 }

@@ -25,17 +25,17 @@ import org.uberfire.ext.layout.editor.api.editor.LayoutTemplate;
 
 
 /**
- * A bootstrap based layout generator
+ * A Patternfly based layout generator
  */
 @Default
 @Dependent
-public class BootstrapLayoutGenerator extends AbstractLayoutGenerator {
+public class PatternflyLayoutGenerator extends AbstractLayoutGenerator {
 
     @Inject
-    private BootstrapLayoutGeneratorDriver bootstrapDriver;
+    private PatternflyLayoutGeneratorDriver pfDriver;
 
     @Override
     public LayoutInstance build(LayoutTemplate layoutTemplate) {
-        return super.build(layoutTemplate, bootstrapDriver);
+        return super.build(layoutTemplate, pfDriver);
     }
 }

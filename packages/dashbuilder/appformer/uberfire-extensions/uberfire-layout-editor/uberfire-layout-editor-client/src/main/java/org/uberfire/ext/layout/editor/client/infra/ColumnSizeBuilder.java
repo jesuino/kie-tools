@@ -16,6 +16,9 @@
 
 package org.uberfire.ext.layout.editor.client.infra;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 import org.gwtbootstrap3.client.ui.constants.ColumnSize;
 
 public class ColumnSizeBuilder {
@@ -68,4 +71,33 @@ public class ColumnSizeBuilder {
         }
         return size;
     }
+
+    public static String buildPFGridClasses(int span) {
+        return Arrays.asList(
+                buildMdClass(span),
+                buildLgClass(span),
+                buildXsClass(span),
+                buildSmClass(span)).stream().collect(Collectors.joining(" "));
+    }
+
+    private static String buildSmClass(int span) {
+        int smSize = 12;
+        if (span <= 6) {
+            smSize = 6;
+        }
+        return "pf-m-" + smSize + "-col-on-sm";
+    }
+
+    private static String buildLgClass(int span) {
+        return "pf-m-" + span + "-col-on-xl";
+    }
+
+    private static String buildMdClass(int span) {
+        return "pf-m-" + span + "-col-on-md";
+    }
+
+    private static String buildXsClass(int span) {
+        return "pf-m-12-col-on-xs";
+    }
+
 }

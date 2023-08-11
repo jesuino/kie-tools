@@ -33,12 +33,14 @@ import org.uberfire.ext.layout.editor.client.infra.ColumnSizeBuilder;
 import org.uberfire.ext.layout.editor.client.infra.LayoutDragComponentHelper;
 
 /**
- * The layout generator driver used in the {@link BootstrapLayoutGenerator}
+ * The layout generator driver used in the {@link PatternflyLayoutGenerator}
  */
 @Default
 @Dependent
-public class BootstrapLayoutGeneratorDriver implements LayoutGeneratorDriver {
+public class PatternflyLayoutGeneratorDriver implements LayoutGeneratorDriver {
 
+    private static final String PF_ROW_CLASSES =
+            "pf-v5-l-grid pf-m-all-6-col-on-sm pf-m-all-4-col-on-md pf-m-all-2-col-on-lg pf-m-all-1-col-on-xl";
     @Inject
     private LayoutDragComponentHelper dragTypeHelper;
 
@@ -49,13 +51,14 @@ public class BootstrapLayoutGeneratorDriver implements LayoutGeneratorDriver {
 
     @Override
     public HTMLElement createRow(LayoutRow layoutRow) {
-        return createDiv("row");
+        return createDiv(PF_ROW_CLASSES);
     }
 
     @Override
     public HTMLElement createColumn(LayoutColumn layoutColumn) {
-        var colSize = ColumnSizeBuilder.buildColumnSize(Integer.parseInt(layoutColumn.getSpan()));
-        return createDiv(colSize);
+        var span = Integer.parseInt(layoutColumn.getSpan());
+        var pfColumnClasses = ColumnSizeBuilder.buildPFGridClasses(span);
+        return createDiv(pfColumnClasses);
     }
 
     @Override

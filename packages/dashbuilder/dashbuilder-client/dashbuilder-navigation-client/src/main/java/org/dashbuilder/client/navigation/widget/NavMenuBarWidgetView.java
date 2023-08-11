@@ -92,6 +92,9 @@ public class NavMenuBarWidgetView extends TargetDivNavWidgetView<NavMenuBarWidge
     public void addItem(String id, String name, String description, Command onItemSelected) {
         var menuItem = beanManager.lookupBean(MenuItem.class).newInstance();
         menuItem.setText(name);
+        if (navBar.childElementCount == 0) { 
+            selectItem(navBar, menuItem.getElement());
+        }
         menuItem.setOnSelect(() -> {
             selectItem(navBar, menuItem.getElement());
             onItemSelected.execute();
@@ -102,7 +105,8 @@ public class NavMenuBarWidgetView extends TargetDivNavWidgetView<NavMenuBarWidge
 
     @Override
     public void setNavHeaderVisible(boolean visible) {
-        // TODO:        nav.setClassName(visible ? "navbar navbar-default navbar-pf" : "");
+        // TODO: Is this still necessary?        
+        //nav.setClassName(visible ? "navbar navbar-default navbar-pf" : "");
     }
 
 }

@@ -84,7 +84,9 @@ public class NavTabListWidgetView extends TargetDivNavWidgetView<NavTabListWidge
     public void addItem(String id, String name, String description, Command onItemSelected) {
         var tab = beanManager.lookupBean(Tab.class).newInstance();
         var element = tab.getElement();
-
+        if (tabList.childElementCount == 0) { 
+            selectItem(tabList, tab.getElement());
+        }
         tab.setTitle(name);
         tab.setOnSelect(() -> {
             selectItem(tabList, tab.getElement());

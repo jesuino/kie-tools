@@ -26,12 +26,13 @@ import com.google.gwt.user.client.ui.Panel;
 import elemental2.dom.DomGlobal;
 import jsinterop.base.Js;
 import org.dashbuilder.displayer.client.AbstractGwtDisplayerView;
+import org.dashbuilder.patternfly.label.Label;
 import org.dashbuilder.renderer.echarts.client.js.ECharts;
 import org.dashbuilder.renderer.echarts.client.js.ECharts.Chart;
 import org.dashbuilder.renderer.echarts.client.js.ECharts.Option;
 import org.dashbuilder.renderer.echarts.client.js.EChartsTypeFactory;
 import org.dashbuilder.renderer.echarts.client.resources.i18n.EChartsDisplayerConstants;
-import org.gwtbootstrap3.client.ui.Label;
+import org.jboss.errai.common.client.ui.ElementWrapperWidget;
 
 @Dependent
 public class EChartsDisplayerView<P extends EChartsAbstractDisplayer<?>>
@@ -50,6 +51,9 @@ public class EChartsDisplayerView<P extends EChartsAbstractDisplayer<?>>
     @Inject
     EChartsResizeHandlerRegister eChartsResizeHandlerRegister;
 
+    @Inject
+    Label lblNoData;
+
     @Override
     public void init(P presenter) {
         super.setPresenter(presenter);
@@ -58,16 +62,13 @@ public class EChartsDisplayerView<P extends EChartsAbstractDisplayer<?>>
 
     @Override
     public void noData() {
-        FlowPanel noDataPanel = GWT.create(FlowPanel.class);
-        Label lblNoData = GWT.create(Label.class);
         lblNoData.setText(EChartsDisplayerConstants.INSTANCE.common_noData());
-        noDataPanel.add(lblNoData);
-
+        
         disposeChart();
         chart = null;
 
         displayerPanel.clear();
-        displayerPanel.add(noDataPanel);
+        displayerPanel.add(ElementWrapperWidget.getWidget(lblNoData.getElement()));
     }
 
     @Override

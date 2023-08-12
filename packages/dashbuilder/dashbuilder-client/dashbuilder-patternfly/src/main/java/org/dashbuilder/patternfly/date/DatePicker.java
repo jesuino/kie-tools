@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.date;
+
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -23,12 +25,12 @@ import elemental2.dom.HTMLElement;
 import org.uberfire.client.mvp.UberElemental;
 
 @Dependent
-public class Slider {
+public class DatePicker {
 
     @Inject
     View view;
 
-    public interface View extends UberElemental<Slider> {
+    public interface View extends UberElemental<DatePicker> {
 
     }
 
@@ -37,38 +39,38 @@ public class Slider {
         view.init(this);
     }
 
+    public void addValueChangeHandler(Runnable action) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void addBlurHandler(Runnable action) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void addShowHandler(Runnable action) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void addHideHandler(Runnable action) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void setValue(Date value) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public Date getValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     public HTMLElement getElement() {
         return view.getElement();
-    }
-
-    public void setEnabled(boolean enabled) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setShowTooltip(boolean enabled) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setMin(double min) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setMax(double max) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setValue(double minSelected, double maxSelected) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setStep(double step) {
-        // TODO Auto-generated method stub
-        
     }
 
 }

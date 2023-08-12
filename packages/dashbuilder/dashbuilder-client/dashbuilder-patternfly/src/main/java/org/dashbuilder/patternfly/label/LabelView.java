@@ -13,36 +13,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.label;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class LabelView implements Label.View {
 
-    private Slider presenter;
-    
+    private Label presenter;
+
     @Inject
-    HTMLDivElement root;
+    @DataField
+    @Named("span")
+    HTMLElement lblRoot;
+
+    @Inject
+    @DataField
+    @Named("span")
+    HTMLElement lbl;
+
+    @Inject
+    @DataField
+    @Named("i")
+    HTMLElement icon;
 
     @Inject
     Elemental2DomUtil util;
 
     @Override
-    public void init(Slider presenter) {
+    public void init(Label presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public HTMLElement getElement() {
-        return root;
+        return lblRoot;
+    }
+
+    public void setText(String txt) {
+        lbl.textContent = txt;
+    }
+
+    public void setShowIcon(boolean show) {
+        icon.style.display = show ? "block" : "none";
+    }
+
+    public void setLabelColor(LabelColor color) {
+        lblRoot.classList.add(color.getClassName());
     }
 
 }

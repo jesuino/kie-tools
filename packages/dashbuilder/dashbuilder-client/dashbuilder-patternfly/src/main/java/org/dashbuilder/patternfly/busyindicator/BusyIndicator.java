@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.busyindicator;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import elemental2.dom.HTMLElement;
 import org.uberfire.client.mvp.UberElemental;
 
-@Dependent
-public class Slider {
+@ApplicationScoped
+public class BusyIndicator {
 
     @Inject
     View view;
 
-    public interface View extends UberElemental<Slider> {
+    public interface View extends UberElemental<BusyIndicator> {
 
     }
 
@@ -41,34 +41,13 @@ public class Slider {
         return view.getElement();
     }
 
-    public void setEnabled(boolean enabled) {
+    public void show(String loadingDashboards) {
         // TODO Auto-generated method stub
         
     }
 
-    public void setShowTooltip(boolean enabled) {
+    public void hide() {
         // TODO Auto-generated method stub
         
     }
-
-    public void setMin(double min) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setMax(double max) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setValue(double minSelected, double maxSelected) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setStep(double step) {
-        // TODO Auto-generated method stub
-        
-    }
-
 }

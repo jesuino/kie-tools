@@ -65,8 +65,6 @@
     <version.commons-io>2.7</version.commons-io>
     <version.commons-codec>1.11</version.commons-codec>
     <version.com.google.gwt>2.9.0</version.com.google.gwt>
-    <version.org.gwtbootstrap3>1.0.1</version.org.gwtbootstrap3>
-    <version.org.gwtbootstrap3-extras>1.0.2</version.org.gwtbootstrap3-extras>
     <version.net.sf.opencsv>2.3</version.net.sf.opencsv>
     <version.org.apache.tomcat>6.0.32</version.org.apache.tomcat>
     <version.jakarta.enterprise.cdi-api>2.0.2</version.jakarta.enterprise.cdi-api>
@@ -309,16 +307,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
         <version>${version.com.google.gwt}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.gwtbootstrap3</groupId>
-        <artifactId>gwtbootstrap3</artifactId>
-        <version>${version.org.gwtbootstrap3}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.gwtbootstrap3</groupId>
-        <artifactId>gwtbootstrap3-extras</artifactId>
-        <version>${version.org.gwtbootstrap3-extras}</version>
       </dependency>
       <dependency>
         <groupId>com.allen-sauer.gwt.dnd</groupId>

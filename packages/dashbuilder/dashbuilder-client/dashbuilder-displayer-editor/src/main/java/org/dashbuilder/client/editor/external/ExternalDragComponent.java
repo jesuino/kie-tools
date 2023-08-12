@@ -10,7 +10,9 @@ import com.google.gwt.user.client.ui.IsWidget;
 import org.dashbuilder.displayer.client.widgets.ExternalComponentPresenter;
 import org.dashbuilder.displayer.external.ExternalComponentMessageHelper;
 import org.dashbuilder.external.model.ExternalComponent;
-import org.gwtbootstrap3.client.ui.Label;
+import org.dashbuilder.patternfly.label.Label;
+import org.dashbuilder.patternfly.label.LabelColor;
+import org.jboss.errai.common.client.ui.ElementWrapperWidget;
 import org.jboss.errai.ioc.client.container.SyncBeanManager;
 import org.uberfire.ext.layout.editor.client.api.LayoutDragComponent;
 import org.uberfire.ext.layout.editor.client.api.RenderingContext;
@@ -28,6 +30,8 @@ public class ExternalDragComponent implements LayoutDragComponent {
     ExternalComponentPresenter externalComponentPresenter;
     @Inject
     ExternalComponentMessageHelper messageHelper;
+    @Inject
+    Label label;
 
     @Override
     public IsWidget getShowWidget(RenderingContext ctx) {
@@ -36,7 +40,10 @@ public class ExternalDragComponent implements LayoutDragComponent {
         var partition = ltProps.get(COMPONENT_PARTITION_KEY);
         var baseUrl = ltProps.get(ExternalComponent.COMPONENT_BASE_URL_KEY);
         if (storedComponentId == null) {
-            return new Label("Component not found.");
+            label.setLabelColor(LabelColor.RED);
+            label.setShowIcon(true);
+            label.setText("Component not found.");
+            return ElementWrapperWidget.getWidget(label.getElement());
         }
 
         externalComponentPresenter.withComponentBaseUrlIdAndPartition(baseUrl, storedComponentId, partition);
@@ -53,7 +60,8 @@ public class ExternalDragComponent implements LayoutDragComponent {
         String prefix = getComponentPrefix(componentId);
         return componentProperties.entrySet()
                 .stream().filter(e -> e.getKey().startsWith(prefix))
-                .collect(toMap(e -> removeComponentPrefix(componentId, e.getKey()),
+                .collect(toMap(e -> removeComponentPrefix(
+                        componentId, e.getKey()),
                         Map.Entry::getValue));
     }
 

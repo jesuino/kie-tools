@@ -40,13 +40,13 @@ import org.dashbuilder.client.services.SamplesService;
 import org.dashbuilder.client.setup.RuntimeClientMode;
 import org.dashbuilder.client.setup.RuntimeClientSetup;
 import org.dashbuilder.dataset.events.DataSetDefRemovedEvent;
+import org.dashbuilder.patternfly.busyindicator.BusyIndicator;
 import org.dashbuilder.shared.event.UpdatedGlobalSettingsEvent;
 import org.dashbuilder.shared.event.UpdatedRuntimeModelEvent;
 import org.dashbuilder.shared.model.DashbuilderRuntimeMode;
 import org.dashbuilder.shared.model.RuntimeModel;
 import org.dashbuilder.shared.model.RuntimeServiceResponse;
 import org.jboss.resteasy.util.HttpResponseCodes;
-import org.uberfire.ext.widgets.common.client.common.BusyIndicatorView;
 import org.uberfire.mvp.Command;
 
 import static elemental2.dom.DomGlobal.fetch;
@@ -64,7 +64,7 @@ public class RuntimeClientLoader {
 
     NavigationManager navigationManager;
 
-    BusyIndicatorView loading;
+    BusyIndicator busyIndicator;
 
     ExternalDataSetClientProvider externalDataSetProvider;
 
@@ -100,7 +100,7 @@ public class RuntimeClientLoader {
     public RuntimeClientLoader(RuntimePerspectiveGenerator perspectiveEditorGenerator,
                                RuntimePerspectivePluginManager runtimePerspectivePluginManager,
                                NavigationManager navigationManager,
-                               BusyIndicatorView loading,
+                               BusyIndicator busyIndicator,
                                ExternalDataSetClientProvider externalDataSetRegister,
                                SamplesService samplesService,
                                RuntimeModelClientParserFactory parserFactory,
@@ -116,7 +116,7 @@ public class RuntimeClientLoader {
         this.samplesService = samplesService;
         this.parserFactory = parserFactory;
         this.contentListener = contentListener;
-        this.loading = loading;
+        this.busyIndicator = busyIndicator;
         this.updatedRuntimeModelEvent = updatedRuntimeModelEvent;
         this.dataSetDefRemovedEvent = dataSetDefRemovedEvent;
         this.updatedGlobalSettingsEvent = updatedGlobalSettingsEvent;
@@ -164,18 +164,18 @@ public class RuntimeClientLoader {
     public void load(Consumer<RuntimeServiceResponse> responseConsumer,
                      BiConsumer<Object, Throwable> error) {
         final var importID = getImportId();
-        loading.showBusyIndicator(i18n.loadingDashboards());
+        busyIndicator.show(i18n.loadingDashboards());
         if (mode == RuntimeClientMode.CLIENT) {
             if ((importID != null && !importID.trim().isEmpty())) {
                 loadClientModelInfo(resolveModel(importID), responseConsumer, error);
             } else if (setup.getDashboards() != null && setup.getDashboards().length == 1) {
                 loadClientModelInfo(resolveModel(setup.getDashboards()[0]), responseConsumer, error);
             } else {
-                loading.hideBusyIndicator();
+                busyIndicator.hide();
                 responseConsumer.accept(buildClientResponse(clientModel));
             }
         } else if (mode == RuntimeClientMode.EDITOR) {
-            loading.hideBusyIndicator();
+            busyIndicator.hide();
             responseConsumer.accept(buildEditorResponse());
         }
 
@@ -185,11 +185,11 @@ public class RuntimeClientLoader {
                           Consumer<RuntimeModel> modelLoaded,
                           Command emptyModel,
                           BiConsumer<Object, Throwable> error) {
-        loading.showBusyIndicator(i18n.loadingDashboards());
+        busyIndicator.show(i18n.loadingDashboards());
         if (mode == RuntimeClientMode.CLIENT) {
             loadClientModel(clientModelBaseUrl + importId, modelLoaded, error);
         } else if (mode == RuntimeClientMode.EDITOR) {
-            loading.hideBusyIndicator();
+            busyIndicator.hide();
             if (clientModel != null) {
                 modelLoaded.accept(clientModel);
             } else {
@@ -263,7 +263,7 @@ public class RuntimeClientLoader {
             }
             return response.text();
         }).then(content -> {
-            loading.hideBusyIndicator();
+            busyIndicator.hide();
             try {
                 if (loadContentAndRoute(content)) {
                     responseConsumer.accept(this.clientModel);
@@ -273,7 +273,7 @@ public class RuntimeClientLoader {
             }
             return null;
         }).catch_(errorResponse -> {
-            loading.hideBusyIndicator();
+            busyIndicator.hide();
             error.accept(errorResponse, new RuntimeException("Not able to load client model"));
             return null;
         });

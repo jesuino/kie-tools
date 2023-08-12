@@ -13,36 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.date;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class DatePickerView implements DatePicker.View {
 
-    private Slider presenter;
-    
-    @Inject
-    HTMLDivElement root;
+    private DatePicker presenter;
 
     @Inject
     Elemental2DomUtil util;
 
     @Override
-    public void init(Slider presenter) {
+    public void init(DatePicker presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public HTMLElement getElement() {
-        return root;
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

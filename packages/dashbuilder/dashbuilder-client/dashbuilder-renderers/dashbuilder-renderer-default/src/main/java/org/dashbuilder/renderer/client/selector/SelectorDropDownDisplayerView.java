@@ -27,7 +27,7 @@ import elemental2.dom.HTMLUListElement;
 import jsinterop.base.Js;
 import org.dashbuilder.displayer.client.AbstractErraiDisplayerView;
 import org.dashbuilder.renderer.client.resources.i18n.SelectorConstants;
-import org.jboss.errai.common.client.dom.DOMUtil;
+import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
@@ -63,6 +63,9 @@ public class SelectorDropDownDisplayerView extends AbstractErraiDisplayerView<Se
     @Inject
     @DataField
     HTMLUListElement dropDownMenu;
+
+    @Inject
+    Elemental2DomUtil domUtil;
 
     private boolean menuVisible;
 
@@ -118,7 +121,7 @@ public class SelectorDropDownDisplayerView extends AbstractErraiDisplayerView<Se
 
     @Override
     public void clearItems() {
-        DOMUtil.removeAllChildren(Js.cast(dropDownMenu));
+        domUtil.removeAllElementChildren(dropDownMenu);
     }
 
     @Override
@@ -143,7 +146,7 @@ public class SelectorDropDownDisplayerView extends AbstractErraiDisplayerView<Se
     }
 
     @EventHandler("dropDownButton")
-    public void onMenuClicked(ClickEvent event) {        
+    public void onMenuClicked(ClickEvent event) {
         menuVisible = !menuVisible;
         updateMenuVisibility();
         dropDownMenu.focus();

@@ -13,36 +13,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.select;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLLIElement;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class SelectItemView implements SelectItem.View {
 
-    private Slider presenter;
+    @Inject
+    @DataField
+    HTMLLIElement item;
+
+    @Inject
+    @DataField
+    HTMLButtonElement btn;
+
+    @Inject
+    @DataField
+    @Named("span")
+    HTMLElement selectedIcon;
     
     @Inject
-    HTMLDivElement root;
-
+    @DataField
+    @Named("span")
+    HTMLElement itemText;
+    
     @Inject
     Elemental2DomUtil util;
 
+    private boolean selected;
+
     @Override
-    public void init(Slider presenter) {
-        this.presenter = presenter;
+    public void init(SelectItem presenter) {
+        btn.onclick = e -> {
+            setSelected(!selected);
+            presenter.itemClicked();
+            return null;
+        };
     }
 
     @Override
     public HTMLElement getElement() {
-        return root;
+        return item;
+    }
+
+    @Override
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        selectedIcon.style.display = selected ? "block" : "none";
+    }
+
+    @Override
+    public void setText(String text) {
+        itemText.textContent = text;
     }
 
 }

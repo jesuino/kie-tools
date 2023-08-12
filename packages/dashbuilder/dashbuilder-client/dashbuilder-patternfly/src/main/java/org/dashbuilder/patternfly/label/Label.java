@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.label;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -23,52 +23,40 @@ import elemental2.dom.HTMLElement;
 import org.uberfire.client.mvp.UberElemental;
 
 @Dependent
-public class Slider {
+public class Label {
 
     @Inject
     View view;
+    
+    public interface View extends UberElemental<Label> {
 
-    public interface View extends UberElemental<Slider> {
+        void setText(String txt);
+
+        void setShowIcon(boolean show);
+
+        void setLabelColor(LabelColor color);
 
     }
-
+    
     @PostConstruct
     public void init() {
         view.init(this);
     }
+    
+    public void setText(String txt) {
+        view.setText(txt);
+    }
+    
+    public void setShowIcon(boolean show) {
+        view.setShowIcon(show);
+    }
+    
+    public void setLabelColor(LabelColor color) {
+        view.setLabelColor(color);
+    }
 
     public HTMLElement getElement() {
         return view.getElement();
-    }
-
-    public void setEnabled(boolean enabled) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setShowTooltip(boolean enabled) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setMin(double min) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setMax(double max) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setValue(double minSelected, double maxSelected) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setStep(double step) {
-        // TODO Auto-generated method stub
-        
     }
 
 }

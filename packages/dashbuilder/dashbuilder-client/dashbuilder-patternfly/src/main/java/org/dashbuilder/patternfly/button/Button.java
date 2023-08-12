@@ -13,22 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.button;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import elemental2.dom.HTMLElement;
 import org.uberfire.client.mvp.UberElemental;
 
 @Dependent
-public class Slider {
+public class Button {
 
     @Inject
     View view;
 
-    public interface View extends UberElemental<Slider> {
+    private Runnable action;
+
+    public interface View extends UberElemental<Button> {
+
+        void setClassName(String className);
+
+        void setText(String text);
+
+        void setVisible(boolean visible);
 
     }
 
@@ -37,38 +44,26 @@ public class Slider {
         view.init(this);
     }
 
-    public HTMLElement getElement() {
-        return view.getElement();
+    void onClick() {
+        if (action != null) {
+            action.run();
+        }
     }
 
-    public void setEnabled(boolean enabled) {
-        // TODO Auto-generated method stub
-        
+    public void setAction(Runnable action) {
+        this.action = action;
     }
 
-    public void setShowTooltip(boolean enabled) {
-        // TODO Auto-generated method stub
-        
+    public void setType(ButtonType type) {
+        view.setClassName(type.getClassName());
     }
-
-    public void setMin(double min) {
-        // TODO Auto-generated method stub
-        
+    
+    public void setText(String text) {
+        view.setText(text);
     }
-
-    public void setMax(double max) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setValue(double minSelected, double maxSelected) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    public void setStep(double step) {
-        // TODO Auto-generated method stub
-        
+    
+    public void setVisible(boolean visible) {
+        view.setVisible(visible);
     }
 
 }

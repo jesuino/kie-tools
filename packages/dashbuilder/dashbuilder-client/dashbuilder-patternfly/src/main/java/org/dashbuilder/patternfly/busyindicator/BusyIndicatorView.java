@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.busyindicator;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -25,18 +25,18 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class BusyIndicatorView implements BusyIndicator.View {
 
-    private Slider presenter;
+    private BusyIndicator presenter;
+
+    @Inject
+    Elemental2DomUtil util;
     
     @Inject
     HTMLDivElement root;
 
-    @Inject
-    Elemental2DomUtil util;
-
     @Override
-    public void init(Slider presenter) {
+    public void init(BusyIndicator presenter) {
         this.presenter = presenter;
     }
 

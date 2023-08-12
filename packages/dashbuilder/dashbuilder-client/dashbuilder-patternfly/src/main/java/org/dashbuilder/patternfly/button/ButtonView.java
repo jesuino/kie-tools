@@ -13,36 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.dashbuilder.patternfly.slider;
+package org.dashbuilder.patternfly.button;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLElement;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
 @Templated
-public class SliderView implements Slider.View {
+public class ButtonView implements Button.View {
 
-    private Slider presenter;
-    
+    private Button presenter;
+
     @Inject
-    HTMLDivElement root;
+    @DataField
+    HTMLButtonElement btn;
 
     @Inject
     Elemental2DomUtil util;
 
     @Override
-    public void init(Slider presenter) {
+    public void init(Button presenter) {
         this.presenter = presenter;
+        btn.onclick = e -> {
+            presenter.onClick();
+            return null;
+        };
     }
 
     @Override
     public HTMLElement getElement() {
-        return root;
+        return btn;
+    }
+
+    public void setClassName(String className) {
+        btn.classList.add(className);
+    }
+
+    @Override
+    public void setText(String text) {
+        btn.textContent = text;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        btn.style.display = visible ? "block" :  "none";        
     }
 
 }

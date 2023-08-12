@@ -77,10 +77,6 @@
       <artifactId>uberfire-workbench-client</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.gwtbootstrap3</groupId>
-      <artifactId>gwtbootstrap3</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.uberfire</groupId>
       <artifactId>uberfire-widgets-core-client</artifactId>
     </dependency>

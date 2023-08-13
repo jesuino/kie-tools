@@ -212,18 +212,6 @@
         <classifier>sources</classifier>
       </dependency>
 
-      <!-- UberFire Commons (former KIE Commons) -->
-      <dependency>
-        <groupId>org.uberfire</groupId>
-        <artifactId>uberfire-commons</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.uberfire</groupId>
-        <artifactId>uberfire-commons</artifactId>
-        <version>${project.version}</version>
-        <classifier>sources</classifier>
-      </dependency>
       <!-- UberFire Packaging -->
       <dependency>
         <groupId>org.uberfire</groupId>

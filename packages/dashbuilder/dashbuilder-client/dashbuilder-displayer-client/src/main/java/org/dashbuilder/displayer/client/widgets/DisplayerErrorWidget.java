@@ -53,6 +53,7 @@ public class DisplayerErrorWidget extends Composite {
         errorDetailsContainer.appendChild(panel.getElement());
         panel.setContent(code.getElement());
         panel.setTitle("Details");
+        panel.setCollapsed(true);
     }
 
     public void show(String message, Throwable t) {

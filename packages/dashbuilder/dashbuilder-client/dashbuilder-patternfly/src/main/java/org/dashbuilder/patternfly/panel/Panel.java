@@ -58,20 +58,25 @@ public class Panel {
         view.setContent(element);
     }
 
-    private void updateView() {
-        if (collapsed) {
-            view.collapse();
-        } else {
-            view.show();
-        }
-    }
-
     public void setTitle(String title) {
         view.setTitle(title);
     }
 
     public HTMLElement getElement() {
         return view.getElement();
+    }
+
+    public void setCollapsed(boolean b) {
+        collapsed = b;
+        updateView();
+    }
+
+    private void updateView() {
+        if (collapsed) {
+            view.collapse();
+        } else {
+            view.show();
+        }
     }
 
 }

@@ -142,13 +142,6 @@ public class DisplayerViewer extends Composite {
         container.clear();
         container.add(errorWidget);
         errorWidget.show(message, e.getThrowable());
-        if (displayerSettings != null) {
-            errorWidget.setRefreshAction(() -> {                
-                init(displayerSettings);
-                draw();
-            });
-        }
-
         error = true;
         GWT.log(e.getMessage(),
                 e.getThrowable());

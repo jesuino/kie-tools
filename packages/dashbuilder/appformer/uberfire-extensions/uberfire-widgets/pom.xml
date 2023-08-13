@@ -34,6 +34,5 @@
 
   <modules>
     <module>uberfire-widgets-commons</module>
-    <module>uberfire-widgets-core</module>
   </modules>
 </project>

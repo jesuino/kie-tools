@@ -41,6 +41,7 @@ public class PatternflyLayoutGeneratorDriver implements LayoutGeneratorDriver {
 
     private static final String PF_ROW_CLASSES =
             "pf-v5-l-grid pf-m-all-6-col-on-sm pf-m-all-4-col-on-md pf-m-all-2-col-on-lg pf-m-all-1-col-on-xl";
+
     @Inject
     private LayoutDragComponentHelper dragTypeHelper;
 

@@ -171,6 +171,10 @@
   height: 100%;
 }
 
+.uf-le-overflow {
+  overflow: auto;
+}
+
 .uf-perspective-rendered-container {
   width: 100%;
   max-width: none;

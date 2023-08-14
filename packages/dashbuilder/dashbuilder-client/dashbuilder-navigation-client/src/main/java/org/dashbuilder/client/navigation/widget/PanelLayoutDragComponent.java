@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 JBoss, by Red Hat, Inc
+ * Copyright 2023 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,56 +19,34 @@ package org.dashbuilder.client.navigation.widget;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import com.google.gwt.user.client.ui.IsWidget;
-import elemental2.dom.HTMLElement;
-import jsinterop.base.Js;
 import org.dashbuilder.client.navigation.plugin.PerspectivePluginManager;
-import org.dashbuilder.patternfly.alert.Alert;
-import org.dashbuilder.patternfly.alert.AlertType;
 import org.dashbuilder.patternfly.panel.Panel;
-import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
-import org.jboss.errai.common.client.ui.ElementWrapperWidget;
-import org.uberfire.ext.layout.editor.client.api.LayoutDragComponent;
-import org.uberfire.ext.layout.editor.client.api.RenderingContext;
+import org.jboss.errai.ioc.client.container.SyncBeanManager;
 
 @ApplicationScoped
-public class PanelLayoutDragComponent implements LayoutDragComponent {
-
-    @Inject
-    Panel panel;
-
-    @Inject
-    Alert alert;
-
-    Elemental2DomUtil domUtil;
+public class PanelLayoutDragComponent extends SinglePageNavigationDragComponent {
 
     public static final String PAGE_NAME_PARAMETER = "Page Name";
     PerspectivePluginManager perspectivePluginManager;
 
     @Inject
-    public PanelLayoutDragComponent(PerspectivePluginManager perspectivePluginManager) {
-        this.perspectivePluginManager = perspectivePluginManager;
+    public PanelLayoutDragComponent(SyncBeanManager beanManager,
+                                    PerspectivePluginManager perspectivePluginManager) {
+        super(beanManager, perspectivePluginManager);
     }
 
     @Override
-    public IsWidget getShowWidget(RenderingContext ctx) {
-        var perspectiveId = ctx.getComponent().getProperties().get(PAGE_NAME_PARAMETER);
-        if (perspectiveId == null) {
-            panel.setTitle(perspectiveId + "  not found.");
-            panel.setContent(alert("Page '" + perspectiveId + "' not found."));
-        } else {
-            panel.setTitle(perspectiveId);
-            perspectivePluginManager.buildPerspectiveWidget(perspectiveId,
-                    page -> panel.setContent(Js.cast(page.asWidget().getElement())),
-                    issue -> panel.setContent(alert("Error with infinite recursion. Review the embedded page")));
-        }
-
-        return ElementWrapperWidget.getWidget(panel.getElement());
+    ComponentBuilder getComponentBuilder() {
+        var panel = beanManager.lookupBean(Panel.class).newInstance();
+        return componentBuilder(panel.getElement(), (name, page) -> {
+            panel.setTitle(name);
+            panel.setContent(page);
+        });
     }
 
-    public HTMLElement alert(String message) {
-        alert.setup(AlertType.WARNING, message);
-        return alert.getElement();
+    @Override
+    String getPageParameterName() {
+        return PAGE_NAME_PARAMETER;
     }
 
 }

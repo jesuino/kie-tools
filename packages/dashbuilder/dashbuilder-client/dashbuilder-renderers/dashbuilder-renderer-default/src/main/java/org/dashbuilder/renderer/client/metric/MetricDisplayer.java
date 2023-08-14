@@ -54,7 +54,7 @@ public class MetricDisplayer extends AbstractGwtDisplayer<MetricDisplayer.View> 
     public static final String DEFAULT_HTML_TEMPLATE = "<div id=\"${this}\""  +    
             "style=\"background-color:${bgColor}; width:${width}px; height: auto; " +
             "margin-top:${marginTop}px; margin-right:${marginRight}px; margin-bottom:${marginBottom}px; margin-left:${marginLeft}px;\">\n" +
-            "  <div class=\"pf-v5-c-card pf-m-compact\">" + 
+            "  <div class=\"pf-v5-c-card pf-m-compact pf-m-rounded\">" + 
             "    <div class=\"pf-v5-c-card__title\">\n" + 
             "      <h3 class=\"pf-v5-c-card__title-text\">${title}</h3>\n" + 
             "    </div>" +

@@ -24,8 +24,6 @@
 
   <inherits name='org.jboss.errai.ioc.Container' />
 
-  <inherits name="org.uberfire.ext.widgets.common.UberfireWidgetsCommons" />
-
   <inherits name="org.dashbuilder.DatasetClient" />
   <inherits name="org.dashbuilder.DisplayerAPI" />
 

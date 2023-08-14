@@ -184,12 +184,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.uberfire</groupId>
-      <artifactId>uberfire-widgets-commons</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
     <!-- Errai -->
     <dependency>
       <groupId>org.jboss.errai</groupId>
@@ -415,7 +409,6 @@
             <compileSourcesArtifact>org.uberfire:uberfire-runtime-plugins-client</compileSourcesArtifact>
             <compileSourcesArtifact>org.uberfire:uberfire-layout-editor-api</compileSourcesArtifact>
             <compileSourcesArtifact>org.uberfire:uberfire-layout-editor-client</compileSourcesArtifact>
-            <compileSourcesArtifact>org.uberfire:uberfire-widgets-commons</compileSourcesArtifact>
 
             <compileSourcesArtifact>org.kie.soup:kie-soup-commons</compileSourcesArtifact>
 

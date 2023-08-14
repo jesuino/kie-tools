@@ -297,21 +297,6 @@
         <classifier>sources</classifier>
       </dependency>
 
-      <!-- Widget commons -->
-
-      <dependency>
-        <groupId>org.uberfire</groupId>
-        <artifactId>uberfire-widgets-commons</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.uberfire</groupId>
-        <artifactId>uberfire-widgets-commons</artifactId>
-        <version>${project.version}</version>
-        <classifier>sources</classifier>
-      </dependency>
-
       <!-- Widget Ace and Editors -->
 
       <dependency>

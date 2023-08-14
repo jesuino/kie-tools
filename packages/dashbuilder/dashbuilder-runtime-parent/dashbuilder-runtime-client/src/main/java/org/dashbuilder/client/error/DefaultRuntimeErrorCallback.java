@@ -25,7 +25,6 @@ import elemental2.dom.DomGlobal;
 import org.dashbuilder.client.resources.i18n.AppConstants;
 import org.dashbuilder.patternfly.busyindicator.BusyIndicator;
 import org.jboss.errai.bus.client.api.InvalidBusContentException;
-import org.uberfire.ext.widgets.common.client.resources.i18n.CommonConstants;
 
 @Dependent
 public class DefaultRuntimeErrorCallback {
@@ -85,8 +84,7 @@ public class DefaultRuntimeErrorCallback {
                 break;
             case OTHER:
             default:
-                String popupMessage = message == null ? i18n.defaultErrorMessage() : message;
-                DomGlobal.console.log(CommonConstants.INSTANCE.ExceptionGeneric0(popupMessage));
+                DomGlobal.console.log(message);
                 this.unlock();
                 break;
         }

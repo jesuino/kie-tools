@@ -46,13 +46,14 @@ import org.dashbuilder.shared.event.UpdatedRuntimeModelEvent;
 import org.dashbuilder.shared.model.DashbuilderRuntimeMode;
 import org.dashbuilder.shared.model.RuntimeModel;
 import org.dashbuilder.shared.model.RuntimeServiceResponse;
-import org.jboss.resteasy.util.HttpResponseCodes;
 import org.uberfire.mvp.Command;
 
 import static elemental2.dom.DomGlobal.fetch;
 
 @ApplicationScoped
 public class RuntimeClientLoader {
+
+    private static final int NOT_FOUND_CODE = 404;
 
     private static AppConstants i18n = AppConstants.INSTANCE;
 
@@ -258,7 +259,7 @@ public class RuntimeClientLoader {
                                  BiConsumer<Object, Throwable> error) {
 
         fetch(url).then(response -> {
-            if (response.status == HttpResponseCodes.SC_NOT_FOUND) {
+            if (response.status == NOT_FOUND_CODE) {
                 throw new RuntimeException("Content not found on URL '" + url + "'");
             }
             return response.text();

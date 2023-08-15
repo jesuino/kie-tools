@@ -60,7 +60,6 @@
     <version.org.assertj>3.14.0</version.org.assertj>
     <version.org.mockito>3.6.0</version.org.mockito>
     <version.org.kie>7.59.0.Final</version.org.kie>
-    <version.org.jboss.resteasy>3.15.1.Final</version.org.jboss.resteasy>
     <version.org.jboss.errai>4.15.0.Final</version.org.jboss.errai>
     <version.commons-io>2.7</version.commons-io>
     <version.commons-codec>1.11</version.commons-codec>
@@ -170,118 +169,6 @@
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
         <version>${version.org.mockito}</version>
-      </dependency>
-      <!-- RESTEASY -->
-      <dependency>
-        <groupId>org.jboss.resteasy</groupId>
-        <artifactId>resteasy-jaxrs</artifactId>
-        <version>${version.org.jboss.resteasy}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.annotation-api -->
-          <exclusion>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.3_spec</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
-          </exclusion>
-          <!-- Collides with org.javassist:javassist -->
-          <exclusion>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.annotation-api -->
-          <exclusion>
-            <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.xml.bind:jakarta.xml.bind-api:jar:2.3.3:provided -->
-          <exclusion>
-            <groupId>org.jboss.spec.javax.xml.bind</groupId>
-            <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.activation:jakarta.activation-api:jar:1.2.2:provided -->
-          <exclusion>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.resteasy</groupId>
-        <artifactId>resteasy-multipart-provider</artifactId>
-        <version>${version.org.jboss.resteasy}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.annotation-api -->
-          <exclusion>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.3_spec</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
-          </exclusion>
-          <!-- Collides with org.javassist:javassist -->
-          <exclusion>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.annotation-api -->
-          <exclusion>
-            <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.xml.bind:jakarta.xml.bind-api:jar:2.3.3:provided -->
-          <exclusion>
-            <groupId>org.jboss.spec.javax.xml.bind</groupId>
-            <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
-          </exclusion>
-          <!-- Collides with jakarta.activation:jakarta.activation-api:jar:1.2.2:provided -->
-          <exclusion>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.resteasy</groupId>
-        <artifactId>resteasy-client</artifactId>
-        <version>${version.org.jboss.resteasy}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.xml.bind</groupId>
-            <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.ws.rs</groupId>
-            <artifactId>jboss-jaxrs-api_2.1_spec</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.jboss.spec.javax.annotation</groupId>
-            <artifactId>jboss-annotations-api_1.3_spec</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
       <!-- Errai -->
       <dependency>

@@ -72,21 +72,16 @@
     <version.org.jboss.xnio>3.8.4.Final</version.org.jboss.xnio>
     <version.io.netty>4.1.59.Final</version.io.netty>
     <version.com.google.elemental2>1.1.0</version.com.google.elemental2>
-    <version.com.allen-sauer.gwt.dnd>3.3.3</version.com.allen-sauer.gwt.dnd>
     <version.org.freemarker>2.3.30</version.org.freemarker>
     <version.jakarta.activation-api>1.2.2</version.jakarta.activation-api>
     <version.com.google.jsinterop.base>1.0.0</version.com.google.jsinterop.base>
     <version.com.google.jsinterop.annotations>2.0.0</version.com.google.jsinterop.annotations>
     <version.org.apache.tomcat.tomcat-dbcp>9.0.21</version.org.apache.tomcat.tomcat-dbcp>
     <version.org.jboss.narayana.tomcat>5.9.0.Final</version.org.jboss.narayana.tomcat>
-    <version.org.jboss.arquillian.container.weld>1.0.0.CR5</version.org.jboss.arquillian.container.weld>
     <version.org.ow2.asm>7.1</version.org.ow2.asm>
-    <version.org.apache.httpcomponents.httpclient>4.5.13</version.org.apache.httpcomponents.httpclient>
-    <version.org.apache.httpcomponents.httpcore>4.4.6</version.org.apache.httpcomponents.httpcore>
     <version.com.gwtmockito>1.1.9</version.com.gwtmockito>
     <version.org.wildfly>23.0.2.Final</version.org.wildfly>
     <version.org.jboss.errai.wildfly>${version.org.wildfly}</version.org.jboss.errai.wildfly>
-    <version.org.javassist>3.26.0-GA</version.org.javassist>
 
     <!-- Plugins -->
     <version.source.plugin>3.1.0</version.source.plugin>
@@ -138,12 +133,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.javassist</groupId>
-        <artifactId>javassist</artifactId>
-        <version>${version.org.javassist}</version>
-      </dependency>
-
-      <dependency>
         <groupId>org.kie.soup</groupId>
         <artifactId>kie-soup-commons</artifactId>
         <version>${version.org.kie}</version>
@@ -194,11 +183,6 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
         <version>${version.com.google.gwt}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.allen-sauer.gwt.dnd</groupId>
-        <artifactId>gwt-dnd</artifactId>
-        <version>${version.com.allen-sauer.gwt.dnd}</version>
       </dependency>
       <dependency>
         <groupId>com.google.gwt.gwtmockito</groupId>
@@ -319,11 +303,6 @@
             <artifactId>jboss-connector-api_1.7_spec</artifactId>
           </exclusion>
         </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.arquillian.container</groupId>
-        <artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-        <version>${version.org.jboss.arquillian.container.weld}</version>
       </dependency>
       <dependency>
         <groupId>org.webjars.npm</groupId>
@@ -642,9 +621,6 @@
 
                       <exclude
                       >log4j:log4j</exclude> <!-- In case of transitive dependency, exclude it and use 'org.slf4j:log4j-over-slf4j' 
-                        instead -->
-                      <exclude
-                      >javassist:javassist</exclude>  <!-- In case of transitive dependency, exclude it and use 'org.javassist:javassist' 
                         instead -->
                       <exclude>org.apache.cxf:cxf-bundle-jaxrs</exclude>
                       <exclude>org.jboss.weld.se:weld-se</exclude> <!-- Use weld-se-core instead -->

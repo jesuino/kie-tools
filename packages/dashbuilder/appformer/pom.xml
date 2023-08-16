@@ -736,18 +736,6 @@
       </dependency>
 
       <dependency>
-        <groupId>com.allen-sauer.gwt.dnd</groupId>
-        <artifactId>gwt-dnd</artifactId>
-        <version>${version.com.allen-sauer.gwt.dnd}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <dependency>
         <groupId>org.scannotation</groupId>
         <artifactId>scannotation</artifactId>
         <version>${version.org.scannotation}</version>
@@ -942,18 +930,6 @@
         <artifactId>lienzo-tests</artifactId>
         <version>${version.org.kie}</version>
         <classifier>sources</classifier>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>${version.org.apache.httpcomponents.httpclient}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-          </exclusion>
-        </exclusions>
       </dependency>
 
       <dependency>

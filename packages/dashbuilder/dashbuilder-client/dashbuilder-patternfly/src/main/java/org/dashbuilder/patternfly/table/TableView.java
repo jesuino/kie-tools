@@ -25,7 +25,8 @@ import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLTableCaptionElement;
+import elemental2.dom.HTMLInputElement;
+import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableRowElement;
 import org.dashbuilder.patternfly.pagination.Pagination;
@@ -37,11 +38,13 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 @Templated
 public class TableView implements Table.View {
 
-    private Table presenter;
-
     @Inject
     @DataField
     HTMLDivElement tableContainer;
+
+    @Inject
+    @DataField
+    HTMLDivElement paginationContainer;
 
     @Inject
     @DataField
@@ -49,7 +52,8 @@ public class TableView implements Table.View {
 
     @Inject
     @DataField
-    HTMLTableCaptionElement tblCaption;
+    @Named("h1")
+    HTMLElement tblTitle;
 
     @Inject
     @DataField
@@ -61,6 +65,19 @@ public class TableView implements Table.View {
     HTMLElement tblBody;
 
     @Inject
+    @DataField
+    HTMLInputElement searchInput;
+
+    @Inject
+    @DataField
+    HTMLTableRowElement emptyRow;
+
+    @Inject
+    @DataField
+    @Named("td")
+    HTMLTableCellElement emptyCell;
+
+    @Inject
     Pagination pagination;
 
     @Inject
@@ -68,28 +85,37 @@ public class TableView implements Table.View {
 
     @Override
     public void init(Table presenter) {
-        this.presenter = presenter;
-        tableContainer.appendChild(pagination.getElement());
+        paginationContainer.appendChild(pagination.getElement());
         pagination.setOnPageChange(presenter::showPage);
+        searchInput.onkeyup = e -> {
+            presenter.onFilterChange(searchInput.value);
+            return null;
+        };
     }
 
     @Override
     public void setColumns(List<String> columns) {
         util.removeAllElementChildren(tblHeadRow);
         columns.stream().map(this::createHeaderCell).forEach(tblHeadRow::appendChild);
+        emptyCell.colSpan = columns.size();
     }
 
     @Override
     public void setData(String[][] data) {
         util.removeAllElementChildren(tblBody);
+        if (data.length == 0 || data[0] == null) {
+            tblBody.appendChild(emptyRow);
+        }
+        
         for (int i = 0; i < data.length; i++) {
             var row = createBodyRow();
-            for (int j = 0; j < data[i].length; j++) {
+            for (int j = 0; data[i] != null && j < data[i].length; j++) {
                 var cell = createTableCell(data[i][j]);
                 row.appendChild(cell);
             }
             tblBody.appendChild(row);
         }
+
     }
 
     @Override
@@ -99,7 +125,7 @@ public class TableView implements Table.View {
 
     @Override
     public void setTitle(String title) {
-        tblCaption.textContent = title;
+        tblTitle.textContent = title;
     }
 
     Element createHeaderCell(String header) {

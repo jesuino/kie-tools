@@ -15,6 +15,7 @@
  */
 package org.dashbuilder.patternfly.table;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,9 +32,10 @@ public class Table {
     private static final int DEFAULT_PAGE_SIZE = 20;
     @Inject
     View view;
+
     private String[][] data;
     private int pageSize;
-    private List<String> columns;
+    private String search;
 
     public interface View extends UberElemental<Table> {
 
@@ -63,7 +65,6 @@ public class Table {
     public void buildTable(List<String> columns,
                            String[][] data,
                            int pageSize) {
-        this.columns = columns;
         this.data = data;
         this.pageSize = pageSize > 1 ? pageSize : DEFAULT_PAGE_SIZE;
         view.setColumns(columns);
@@ -72,6 +73,7 @@ public class Table {
     }
 
     public void showPage(int page) {
+        var filteredData = filter();
         var begin = pageSize * (page - 1);
         var end = pageSize * page;
 
@@ -83,8 +85,35 @@ public class Table {
             end = data.length;
         }
 
-        var pagedData = Arrays.copyOfRange(data, begin, end);
+        var pagedData = Arrays.copyOfRange(filteredData, begin, end);
         view.setData(pagedData);
+    }
+
+    private String[][] filter() {
+        // isBlank do not work with current GWT version
+        if (search == null || search.trim().isEmpty()) {
+            return data;
+        }
+        var filteredData = new ArrayList<String[]>();
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < data[i].length; j++) {
+                if (data[i][j].toLowerCase().contains(search.toLowerCase())) {
+                    filteredData.add(data[i]);
+                    break;
+                }
+            }
+        }
+        if(filteredData.isEmpty()) {
+            return new String[0][0];
+        }
+        var result = new String[filteredData.size()][];
+        filteredData.toArray(result);
+        return result;
+    }
+
+    public void onFilterChange(String value) {
+        this.search = value;
+        showPage(1);
     }
 
 }

@@ -24,7 +24,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.IsWidget;
-import org.dashbuilder.common.client.widgets.AlertBox;
+import org.dashbuilder.patternfly.alert.Alert;
 import org.jboss.errai.common.client.dom.Div;
 import org.jboss.errai.common.client.dom.Node;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
@@ -43,7 +43,7 @@ public class NavTreeWidgetView extends TargetDivNavWidgetView<NavTreeWidget>
     NavTreeWidget presenter;
 
     @Inject
-    public NavTreeWidgetView(AlertBox alertBox) {
+    public NavTreeWidgetView(Alert alertBox) {
         super(alertBox);
     }
 

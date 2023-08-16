@@ -27,7 +27,8 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLOListElement;
 import jsinterop.base.Js;
 import org.dashbuilder.client.navigation.resources.i18n.NavigationConstants;
-import org.dashbuilder.common.client.widgets.AlertBox;
+import org.dashbuilder.patternfly.alert.Alert;
+import org.dashbuilder.patternfly.alert.AlertType;
 import org.jboss.errai.common.client.dom.DOMUtil;
 import org.jboss.errai.common.client.dom.Div;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
@@ -62,14 +63,13 @@ public class NavTilesWidgetView extends BaseNavWidgetView<NavTilesWidget>
     Elemental2DomUtil domUtil;
 
     NavTilesWidget presenter;
-    AlertBox alertBox;
+    Alert alertBox;
 
     @Inject
-    public NavTilesWidgetView(AlertBox alertBox) {
+    public NavTilesWidgetView(Alert alertBox) {
         this.alertBox = alertBox;
-        alertBox.setLevel(AlertBox.Level.WARNING);
-        alertBox.setCloseEnabled(false);
-        alertBox.getElement().getStyle().setProperty("width", "96%");
+        alertBox.setType(AlertType.WARNING);
+        alertBox.getElement().style.setProperty("width", "96%");
     }
 
     @Override
@@ -100,14 +100,14 @@ public class NavTilesWidgetView extends BaseNavWidgetView<NavTilesWidget>
     public void errorNavItemsEmpty() {
         DOMUtil.removeAllChildren(mainDiv);
         alertBox.setMessage(NavigationConstants.INSTANCE.navGroupEmptyError());
-        mainDiv.appendChild(alertBox.getElement());
+        mainDiv.appendChild(Js.cast(alertBox.getElement()));
     }
 
     @Override
     public void errorNavGroupNotFound() {
         DOMUtil.removeAllChildren(mainDiv);
         alertBox.setMessage(NavigationConstants.INSTANCE.navGroupNotFound());
-        mainDiv.appendChild(alertBox.getElement());
+        mainDiv.appendChild(Js.cast(alertBox.getElement()));
     }
 
     @Override

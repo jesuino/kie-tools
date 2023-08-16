@@ -15,35 +15,55 @@
  */
 package org.dashbuilder.patternfly.alert;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import org.uberfire.client.mvp.UberElemental;
+import elemental2.dom.HTMLParagraphElement;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 @Dependent
+@Templated
 public class Alert {
 
     @Inject
-    View view;
+    @DataField
+    HTMLDivElement alertContainer;
 
-    public interface View extends UberElemental<Alert> {
+    @Inject
+    @DataField
+    @Named("i")
+    HTMLElement alertIcon;
 
-        public void setup(AlertType type, String content);
-    }
+    @Inject
+    @DataField
+    HTMLParagraphElement alertText;
 
-    @PostConstruct
-    public void init() {
-        view.init(this);
+    private AlertType type;
+
+    public HTMLElement getElement() {
+        return alertContainer;
     }
 
     public void setup(AlertType type, String content) {
-        view.setup(type, content);
+        this.type = type;
+        setMessage(content);
     }
-    
-    public HTMLElement getElement() {
-        return view.getElement();
+
+    public void setMessage(String content) {
+        if (type == null) {
+            type = AlertType.INFO;
+        }
+        alertIcon.classList.add(type.getIcon());
+        alertContainer.classList.add(type.getClassName());
+        alertText.textContent = content;
+    }
+
+    public void setType(AlertType type) {
+        this.type = type;
     }
 
 }

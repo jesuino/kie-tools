@@ -23,7 +23,7 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
 import jsinterop.base.Js;
-import org.dashbuilder.common.client.widgets.AlertBox;
+import org.dashbuilder.patternfly.alert.Alert;
 import org.dashbuilder.patternfly.menu.MenuItem;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ioc.client.container.SyncBeanManager;
@@ -58,7 +58,7 @@ public class NavMenuBarWidgetView extends TargetDivNavWidgetView<NavMenuBarWidge
     NavMenuBarWidget presenter;
 
     @Inject
-    public NavMenuBarWidgetView(AlertBox alertBox) {
+    public NavMenuBarWidgetView(Alert alertBox) {
         super(alertBox);
     }
 

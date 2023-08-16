@@ -19,8 +19,10 @@ import java.util.function.Consumer;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.ui.IsWidget;
+import jsinterop.base.Js;
 import org.dashbuilder.client.navigation.resources.i18n.NavigationConstants;
-import org.dashbuilder.common.client.widgets.AlertBox;
+import org.dashbuilder.patternfly.alert.Alert;
+import org.dashbuilder.patternfly.alert.AlertType;
 import org.jboss.errai.common.client.dom.DOMUtil;
 import org.jboss.errai.common.client.dom.Div;
 import org.jboss.errai.common.client.dom.Element;
@@ -31,16 +33,15 @@ import org.uberfire.mvp.Command;
 
 public abstract class TargetDivNavWidgetView<T extends TargetDivNavWidget> extends BaseNavWidgetView<T>
                                             implements TargetDivNavWidget.View<T> {
-    
+
     private static final String PF5_SELECTED_CLASS = "pf-m-current";
 
-    AlertBox alertBox;
+    Alert alertBox;
 
-    public TargetDivNavWidgetView(AlertBox alertBox) {
+    TargetDivNavWidgetView(Alert alertBox) {
         this.alertBox = alertBox;
-        alertBox.setLevel(AlertBox.Level.WARNING);
-        alertBox.setCloseEnabled(false);
-        alertBox.getElement().getStyle().setProperty("width", "96%");
+        alertBox.setType(AlertType.WARNING);
+        alertBox.getElement().style.setProperty("width", "96%");
     }
 
     @Override
@@ -79,7 +80,7 @@ public abstract class TargetDivNavWidgetView<T extends TargetDivNavWidget> exten
             DOMUtil.removeAllChildren(targetDiv);
             String message = NavigationConstants.INSTANCE.targetDivIdPerspectiveInfiniteRecursion() + cause;
             alertBox.setMessage(message);
-            targetDiv.appendChild(alertBox.getElement());
+            targetDiv.appendChild(Js.cast(alertBox.getElement()));
         } else {
             error(NavigationConstants.INSTANCE.targetDivIdPerspectiveInfiniteRecursion());
         }
@@ -88,7 +89,7 @@ public abstract class TargetDivNavWidgetView<T extends TargetDivNavWidget> exten
     public void error(String message) {
         DOMUtil.removeAllChildren(navWidget);
         alertBox.setMessage(message);
-        navWidget.appendChild(alertBox.getElement());
+        navWidget.appendChild(Js.cast(alertBox.getElement()));
     }
 
     protected Element getLayoutRootElement(Element el) {
@@ -127,7 +128,7 @@ public abstract class TargetDivNavWidgetView<T extends TargetDivNavWidget> exten
         }
         return targetDiv;
     }
-    
+
     protected void selectItem(elemental2.dom.Element parent, elemental2.dom.Element selected) {
         parent.childNodes.forEach((currentValue, currentIndex, listObj) -> {
             ((elemental2.dom.Element) currentValue).classList.remove(PF5_SELECTED_CLASS);

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import com.google.gwt.user.client.ui.IsWidget;
 import org.dashbuilder.displayer.client.widgets.ExternalComponentPresenter;
 import org.dashbuilder.displayer.external.ExternalComponentMessageHelper;
-import org.dashbuilder.external.model.ExternalComponent;
 import org.dashbuilder.patternfly.label.Label;
 import org.dashbuilder.patternfly.label.LabelColor;
 import org.jboss.errai.common.client.ui.ElementWrapperWidget;
@@ -18,11 +17,13 @@ import org.uberfire.ext.layout.editor.client.api.LayoutDragComponent;
 import org.uberfire.ext.layout.editor.client.api.RenderingContext;
 
 import static java.util.stream.Collectors.toMap;
-import static org.dashbuilder.external.model.ExternalComponent.COMPONENT_ID_KEY;
-import static org.dashbuilder.external.model.ExternalComponent.COMPONENT_PARTITION_KEY;
 
 @Dependent
 public class ExternalDragComponent implements LayoutDragComponent {
+
+    public static final String COMPONENT_ID_KEY = "componentId";
+    public static final String COMPONENT_PARTITION_KEY = "componentPartition";
+    public static final String COMPONENT_BASE_URL_KEY = "baseUrl";
 
     @Inject
     SyncBeanManager beanManager;
@@ -38,7 +39,7 @@ public class ExternalDragComponent implements LayoutDragComponent {
         var ltProps = ctx.getComponent().getProperties();
         var storedComponentId = ltProps.get(COMPONENT_ID_KEY);
         var partition = ltProps.get(COMPONENT_PARTITION_KEY);
-        var baseUrl = ltProps.get(ExternalComponent.COMPONENT_BASE_URL_KEY);
+        var baseUrl = ltProps.get(COMPONENT_BASE_URL_KEY);
         if (storedComponentId == null) {
             label.setLabelColor(LabelColor.RED);
             label.setShowIcon(true);

@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.IsWidget;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLUListElement;
 import jsinterop.base.Js;
-import org.dashbuilder.common.client.widgets.AlertBox;
+import org.dashbuilder.patternfly.alert.Alert;
 import org.dashbuilder.patternfly.tab.Tab;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ioc.client.container.SyncBeanManager;
@@ -60,7 +60,7 @@ public class NavTabListWidgetView extends TargetDivNavWidgetView<NavTabListWidge
     NavTabListWidget presenter;
 
     @Inject
-    public NavTabListWidgetView(AlertBox alertBox) {
+    public NavTabListWidgetView(Alert alertBox) {
         super(alertBox);
     }
 
@@ -84,7 +84,7 @@ public class NavTabListWidgetView extends TargetDivNavWidgetView<NavTabListWidge
     public void addItem(String id, String name, String description, Command onItemSelected) {
         var tab = beanManager.lookupBean(Tab.class).newInstance();
         var element = tab.getElement();
-        if (tabList.childElementCount == 0) { 
+        if (tabList.childElementCount == 0) {
             selectItem(tabList, tab.getElement());
         }
         tab.setTitle(name);

@@ -122,7 +122,6 @@
 \*\/$
 ]]>
     </checkstyle.header.template>
-    <version.org.maven.dependency.plugin>3.1.2</version.org.maven.dependency.plugin>
 
     <!-- Properties from DROOLS-WB parent POM -->
     <!-- TODO: Enable these flags after fixing all checkstyle issues -->
@@ -1015,10 +1014,6 @@
           <artifactId>maven-dependency-plugin</artifactId>
           <version>${version.org.apache.maven.plugins.dependency}</version>
         </plugin>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-	<version>${version.org.maven.dependency.plugin}</version>
-      </plugin>
       </plugins>
     </pluginManagement>
     <plugins>

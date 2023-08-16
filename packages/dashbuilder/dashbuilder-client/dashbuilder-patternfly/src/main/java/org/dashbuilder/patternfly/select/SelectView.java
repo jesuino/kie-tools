@@ -19,10 +19,12 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLUListElement;
+import jsinterop.base.Js;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
@@ -49,8 +51,6 @@ public class SelectView implements Select.View {
     @DataField
     HTMLUListElement itemsContainer;
 
-    private Select presenter;
-
     boolean itemsVisible;
 
     @Inject
@@ -58,7 +58,6 @@ public class SelectView implements Select.View {
 
     @Override
     public void init(Select presenter) {
-        this.presenter = presenter;
         itemsVisible = false;
         toggleMenu();
         btnToggle.onclick = e -> {
@@ -66,6 +65,11 @@ public class SelectView implements Select.View {
             toggleMenu();
             return null;
         };
+        DomGlobal.document.addEventListener("click", e -> {
+            if (!selectRoot.contains(Js.cast(e.target))) {
+                closeMenu();
+            }
+        });
     }
 
     @Override
@@ -92,7 +96,7 @@ public class SelectView implements Select.View {
         itemsVisible = false;
         toggleMenu();
     }
-    
+
     private void toggleMenu() {
         itemsContainer.style.display = itemsVisible ? "block" : "none";
     }

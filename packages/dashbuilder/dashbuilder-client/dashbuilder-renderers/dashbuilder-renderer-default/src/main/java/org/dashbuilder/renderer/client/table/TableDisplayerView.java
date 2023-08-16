@@ -22,7 +22,6 @@ import javax.inject.Inject;
 import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
 import jsinterop.base.Js;
-import org.dashbuilder.common.client.widgets.FilterLabelSet;
 import org.dashbuilder.dataset.ColumnType;
 import org.dashbuilder.displayer.client.AbstractErraiDisplayerView;
 import org.dashbuilder.patternfly.table.Table;
@@ -56,11 +55,6 @@ public class TableDisplayerView extends AbstractErraiDisplayerView<TableDisplaye
     @Override
     public String getColumnsTitle() {
         return TableConstants.INSTANCE.tableDisplayer_columnsTitle();
-    }
-
-    @Override
-    public void createTable(int pageSize, FilterLabelSet filterLabelSet) {
-        // TODO: 
     }
 
     @Override

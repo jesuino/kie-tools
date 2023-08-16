@@ -48,8 +48,6 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
 
         void showTitle(String title);
 
-        void createTable(int pageSize, FilterLabelSet widget);
-
         void redrawTable(List<String> columnsNames, String[][] data, int pageSize);
 
         void setWidth(int width);
@@ -125,7 +123,6 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
             view.showTitle(displayerSettings.getTitle());
         }
 
-        view.createTable(displayerSettings.getTablePageSize(), filterLabelSet);
         view.setSortEnabled(displayerSettings.isTableSortEnabled());
         view.setTotalRows(totalRows);
         view.setColumnPickerEnabled(displayerSettings.isTableColumnPickerEnabled());

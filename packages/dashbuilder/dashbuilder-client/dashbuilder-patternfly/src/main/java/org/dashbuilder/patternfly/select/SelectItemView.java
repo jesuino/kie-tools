@@ -30,6 +30,8 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 @Templated
 public class SelectItemView implements SelectItem.View {
 
+    private static final String SELECTED_CLASS = "pf-m-selected";
+
     @Inject
     @DataField
     HTMLLIElement item;
@@ -42,12 +44,7 @@ public class SelectItemView implements SelectItem.View {
     @DataField
     @Named("span")
     HTMLElement selectedIcon;
-    
-    @Inject
-    @DataField
-    @Named("span")
-    HTMLElement itemText;
-    
+
     @Inject
     Elemental2DomUtil util;
 
@@ -70,12 +67,18 @@ public class SelectItemView implements SelectItem.View {
     @Override
     public void setSelected(boolean selected) {
         this.selected = selected;
+        if (selected) {
+            btn.classList.add(SELECTED_CLASS);
+        } else {
+            btn.classList.remove(SELECTED_CLASS);
+        }
         selectedIcon.style.display = selected ? "block" : "none";
     }
 
     @Override
     public void setText(String text) {
-        itemText.textContent = text;
+        btn.textContent = text;
+        btn.appendChild(selectedIcon);
     }
 
 }

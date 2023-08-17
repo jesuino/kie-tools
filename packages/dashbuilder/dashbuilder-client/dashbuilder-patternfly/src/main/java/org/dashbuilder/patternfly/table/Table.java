@@ -34,7 +34,7 @@ public class Table {
     @Inject
     View view;
 
-    private String[][] data;
+    private Value[][] data;
     private int pageSize;
     private String search;
     private BiConsumer<String, Integer> onCellSelectedListener;
@@ -43,7 +43,7 @@ public class Table {
 
         void setTitle(String title);
 
-        void setData(String[][] data);
+        void setData(Value[][] pagedData);
 
         void setColumns(List<String> columns);
 
@@ -73,15 +73,26 @@ public class Table {
     public void buildTable(List<String> columns,
                            String[][] data,
                            int pageSize) {
-        this.data = data;
+        this.data = buildData(data);
         this.pageSize = pageSize > 1 ? pageSize : DEFAULT_PAGE_SIZE;
         view.setColumns(columns);
         view.setPagination(data.length, this.pageSize);
         showPage(1);
     }
 
+    private Value[][] buildData(String[][] data) {
+        var dataValue = new Value[data.length][];
+        for (int i = 0; i < data.length; i++) {
+            dataValue[i] = new Value[data[i].length];
+            for (int j = 0; data[i] != null && j < data[i].length; j++) {
+                dataValue[i][j] = new Value(i, data[i][j]);
+            }
+        }
+        return dataValue;
+    }
+
     public void showPage(int page) {
-        if(data == null || data.length == 0 || data[0] == null) {
+        if (data == null || data.length == 0 || data[0] == null) {
             return;
         }
         var filteredData = filter();
@@ -112,30 +123,56 @@ public class Table {
 
     }
 
-    String[][] filter() {
+    Value[][] filter() {
         // isBlank do not work with current GWT version
         if (search == null || search.trim().isEmpty()) {
             return data;
         }
-        var filteredData = new ArrayList<String[]>();
+        var filteredData = new ArrayList<Value[]>();
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < data[i].length; j++) {
-                if (data[i][j].toLowerCase().contains(search.toLowerCase())) {
+                if (data[i][j].toString().toLowerCase().contains(search.toLowerCase())) {
                     filteredData.add(data[i]);
                     break;
                 }
             }
         }
         if (filteredData.isEmpty()) {
-            return new String[0][0];
+            return new Value[0][0];
         }
-        var result = new String[filteredData.size()][];
+        var result = new Value[filteredData.size()][];
         filteredData.toArray(result);
         return result;
     }
 
     public void setSelectable(boolean selectable) {
-        view.setSelectable(selectable);        
+        view.setSelectable(selectable);
+    }
+
+    class Value {
+
+        int index;
+        String value;
+
+        public Value(int index, String value) {
+            super();
+            this.index = index;
+            this.value = value;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+
     }
 
 }

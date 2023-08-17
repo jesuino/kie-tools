@@ -124,7 +124,7 @@ public class PaginationView implements Pagination.View {
 
         this.currentPage = 1;
         txtSelectedPage.max = "" + totalPages;
-        paginationNav.style.display = totalPages > 1 ? "block" : "none";
+        paginationNav.style.display = totalPages > 1 ? "" : "none";
         selectPage(1);
     }
 

@@ -30,6 +30,7 @@ import elemental2.dom.HTMLTableCellElement;
 import elemental2.dom.HTMLTableElement;
 import elemental2.dom.HTMLTableRowElement;
 import org.dashbuilder.patternfly.pagination.Pagination;
+import org.dashbuilder.patternfly.table.Table.Value;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
@@ -39,7 +40,6 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 public class TableView implements Table.View {
 
     private static final String SELECTED_CLASS = "pf-m-selected";
-
 
     @Inject
     @DataField
@@ -112,7 +112,7 @@ public class TableView implements Table.View {
     }
 
     @Override
-    public void setData(String[][] data) {
+    public void setData(Value[][] data) {
         util.removeAllElementChildren(tblBody);
         if (data.length == 0 || data[0] == null) {
             tblBody.appendChild(emptyRow);
@@ -122,9 +122,10 @@ public class TableView implements Table.View {
             var row = createBodyRow();
             for (int j = 0; data[i] != null && j < data[i].length; j++) {
                 var column = columns.get(j);
-                var cell = createTableCell(data[i][j]);
+                var value = data[i][j];
+                var cell = createTableCell(value.toString());
                 if (this.selectable) {
-                    registerListener(cell, column, i);
+                    registerListener(cell, column, value.getIndex());
                 }
                 row.appendChild(cell);
             }
@@ -174,7 +175,7 @@ public class TableView implements Table.View {
         var tr = DomGlobal.document.createElement("tr");
         tr.setAttribute("role", "row");
         tr.classList.add("pf-v5-c-table__tr");
-        if(this.selectable) {
+        if (this.selectable) {
             tr.classList.add("pf-m-clickable");
         }
         return tr;

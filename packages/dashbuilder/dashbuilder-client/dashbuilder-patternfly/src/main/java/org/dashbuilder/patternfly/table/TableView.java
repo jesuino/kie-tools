@@ -38,6 +38,9 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 @Templated
 public class TableView implements Table.View {
 
+    private static final String SELECTED_CLASS = "pf-m-selected";
+
+
     @Inject
     @DataField
     HTMLDivElement tableContainer;
@@ -83,8 +86,15 @@ public class TableView implements Table.View {
     @Inject
     Elemental2DomUtil util;
 
+    private List<String> columns;
+
+    private Table presenter;
+
+    private boolean selectable;
+
     @Override
     public void init(Table presenter) {
+        this.presenter = presenter;
         paginationContainer.appendChild(pagination.getElement());
         pagination.setOnPageChange(presenter::showPage);
         searchInput.onkeyup = e -> {
@@ -95,6 +105,7 @@ public class TableView implements Table.View {
 
     @Override
     public void setColumns(List<String> columns) {
+        this.columns = columns;
         util.removeAllElementChildren(tblHeadRow);
         columns.stream().map(this::createHeaderCell).forEach(tblHeadRow::appendChild);
         emptyCell.colSpan = columns.size();
@@ -106,16 +117,28 @@ public class TableView implements Table.View {
         if (data.length == 0 || data[0] == null) {
             tblBody.appendChild(emptyRow);
         }
-        
+
         for (int i = 0; i < data.length; i++) {
             var row = createBodyRow();
             for (int j = 0; data[i] != null && j < data[i].length; j++) {
+                var column = columns.get(j);
                 var cell = createTableCell(data[i][j]);
+                if (this.selectable) {
+                    registerListener(cell, column, i);
+                }
                 row.appendChild(cell);
             }
             tblBody.appendChild(row);
         }
 
+    }
+
+    private void registerListener(Element cell, String column, int i) {
+        cell.onclick = e -> {
+            cell.parentElement.classList.toggle(SELECTED_CLASS);
+            presenter.onCellSelected(column, i);
+            return null;
+        };
     }
 
     @Override
@@ -126,6 +149,16 @@ public class TableView implements Table.View {
     @Override
     public void setTitle(String title) {
         tblTitle.textContent = title;
+    }
+
+    @Override
+    public void setPagination(int nRows, int pageSize) {
+        pagination.setPagination(nRows, pageSize);
+    }
+
+    @Override
+    public void setSelectable(boolean selectable) {
+        this.selectable = selectable;
     }
 
     Element createHeaderCell(String header) {
@@ -141,6 +174,9 @@ public class TableView implements Table.View {
         var tr = DomGlobal.document.createElement("tr");
         tr.setAttribute("role", "row");
         tr.classList.add("pf-v5-c-table__tr");
+        if(this.selectable) {
+            tr.classList.add("pf-m-clickable");
+        }
         return tr;
     }
 
@@ -149,11 +185,6 @@ public class TableView implements Table.View {
         td.classList.add("pf-v5-c-table__td");
         td.textContent = content;
         return td;
-    }
-
-    @Override
-    public void setPagination(int nRows, int pageSize) {
-        pagination.setPagination(nRows, pageSize);
     }
 
 }

@@ -20,6 +20,7 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import com.google.gwt.user.client.ui.Composite;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import org.dashbuilder.patternfly.code.CodeView;
 import org.dashbuilder.patternfly.panel.Panel;
@@ -61,6 +62,7 @@ public class DisplayerErrorWidget extends Composite {
         if (t != null) {
             var errorDetails = buildErrorDetails(t);
             code.setContent(errorDetails);
+            DomGlobal.console.debug(t);
         }
     }
 

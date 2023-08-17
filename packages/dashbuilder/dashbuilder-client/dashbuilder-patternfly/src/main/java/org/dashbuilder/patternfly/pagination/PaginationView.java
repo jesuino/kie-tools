@@ -85,6 +85,11 @@ public class PaginationView implements Pagination.View {
     HTMLInputElement txtSelectedPage;
 
     @Inject
+    @DataField
+    @Named("nav")
+    HTMLElement paginationNav;
+
+    @Inject
     Elemental2DomUtil util;
 
     private int totalPages;
@@ -116,11 +121,11 @@ public class PaginationView implements Pagination.View {
         this.pageSize = pageSize;
         this.totalPages = nRows / pageSize;
         this.totalPages += nRows % pageSize == 0 ? 0 : 1;
-        
+
         this.currentPage = 1;
         txtSelectedPage.max = "" + totalPages;
+        paginationNav.style.display = totalPages > 1 ? "block" : "none";
         selectPage(1);
-
     }
 
     @Override

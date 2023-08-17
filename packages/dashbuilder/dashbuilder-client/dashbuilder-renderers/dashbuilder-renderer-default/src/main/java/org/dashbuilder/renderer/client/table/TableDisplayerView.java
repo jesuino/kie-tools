@@ -21,17 +21,33 @@ import javax.inject.Inject;
 
 import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
+import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 import org.dashbuilder.dataset.ColumnType;
 import org.dashbuilder.displayer.client.AbstractErraiDisplayerView;
 import org.dashbuilder.patternfly.table.Table;
 import org.dashbuilder.renderer.client.resources.i18n.TableConstants;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
+import org.jboss.errai.ui.shared.api.annotations.DataField;
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 
+@Templated
 public class TableDisplayerView extends AbstractErraiDisplayerView<TableDisplayer> implements TableDisplayer.View {
 
     @Inject
     protected Table table;
+
+    @Inject
+    @DataField
+    HTMLDivElement rootContainer;
+
+    @Inject
+    @DataField
+    HTMLDivElement filterLabelContainer;
+
+    @Inject
+    @DataField
+    HTMLDivElement tableContainer;
 
     @Inject
     Elemental2DomUtil elemental2DomUtil;
@@ -39,7 +55,12 @@ public class TableDisplayerView extends AbstractErraiDisplayerView<TableDisplaye
     @Override
     public void init(TableDisplayer presenter) {
         super.setPresenter(presenter);
-        super.setVisualization(Js.cast(table.getElement()));
+        super.setVisualization(Js.cast(rootContainer));
+
+        tableContainer.append(table.getElement());
+        filterLabelContainer.append(presenter.getFilterLabelSet().getElement());
+
+        table.setOnCellSelectedListener(presenter::selectCell);
     }
 
     @Override
@@ -94,19 +115,18 @@ public class TableDisplayerView extends AbstractErraiDisplayerView<TableDisplaye
                           int index,
                           boolean selectEnabled,
                           boolean sortEnabled) {
-        // TODO:
+        // no-op
 
     }
 
     @Override
     public void gotoFirstPage() {
-        // TODO: implement
+        table.showPage(1);
     }
 
     @Override
-    public void setTotalRows(int rows) {
-        // TODO Auto-generated method stub
-
+    public void setSelectable(boolean selectable) {
+        table.setSelectable(selectable);
     }
 
 }

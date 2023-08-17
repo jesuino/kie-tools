@@ -18,6 +18,7 @@ package org.dashbuilder.patternfly.table;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
@@ -36,6 +37,7 @@ public class Table {
     private String[][] data;
     private int pageSize;
     private String search;
+    private BiConsumer<String, Integer> onCellSelectedListener;
 
     public interface View extends UberElemental<Table> {
 
@@ -47,11 +49,17 @@ public class Table {
 
         void setPagination(int nRows, int nPages);
 
+        void setSelectable(boolean selectable);
+
     }
 
     @PostConstruct
     public void init() {
         view.init(this);
+    }
+
+    public void setOnCellSelectedListener(BiConsumer<String, Integer> onCellSelectedListener) {
+        this.onCellSelectedListener = onCellSelectedListener;
     }
 
     public HTMLElement getElement() {
@@ -73,6 +81,9 @@ public class Table {
     }
 
     public void showPage(int page) {
+        if(data == null || data.length == 0 || data[0] == null) {
+            return;
+        }
         var filteredData = filter();
         var begin = pageSize * (page - 1);
         var end = pageSize * page;
@@ -89,7 +100,19 @@ public class Table {
         view.setData(pagedData);
     }
 
-    private String[][] filter() {
+    public void onFilterChange(String value) {
+        this.search = value;
+        showPage(1);
+    }
+
+    void onCellSelected(String column, int i) {
+        if (onCellSelectedListener != null) {
+            onCellSelectedListener.accept(column, i);
+        }
+
+    }
+
+    String[][] filter() {
         // isBlank do not work with current GWT version
         if (search == null || search.trim().isEmpty()) {
             return data;
@@ -103,7 +126,7 @@ public class Table {
                 }
             }
         }
-        if(filteredData.isEmpty()) {
+        if (filteredData.isEmpty()) {
             return new String[0][0];
         }
         var result = new String[filteredData.size()][];
@@ -111,9 +134,8 @@ public class Table {
         return result;
     }
 
-    public void onFilterChange(String value) {
-        this.search = value;
-        showPage(1);
+    public void setSelectable(boolean selectable) {
+        view.setSelectable(selectable);        
     }
 
 }

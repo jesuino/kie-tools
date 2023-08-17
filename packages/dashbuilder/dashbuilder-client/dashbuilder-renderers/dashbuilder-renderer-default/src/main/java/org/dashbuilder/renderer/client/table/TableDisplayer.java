@@ -56,8 +56,6 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
 
         void setSortEnabled(boolean enabled);
 
-        void setTotalRows(int rows);
-
         void setColumnPickerEnabled(boolean enabled);
 
         void addColumn(ColumnType columnType,
@@ -70,6 +68,8 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
         void gotoFirstPage();
 
         void setHeight(int chartHeight);
+
+        void setSelectable(boolean filterNotificationEnabled);
     }
 
     protected View view;
@@ -82,9 +82,9 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
     @Inject
     public TableDisplayer(View view, FilterLabelSet filterLabelSet) {
         this.view = view;
-        this.view.init(this);
         this.filterLabelSet = filterLabelSet;
         this.filterLabelSet.setOnClearAllCommand(this::onFilterClearAll);
+        this.view.init(this);
     }
 
     @Override
@@ -124,7 +124,6 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
         }
 
         view.setSortEnabled(displayerSettings.isTableSortEnabled());
-        view.setTotalRows(totalRows);
         view.setColumnPickerEnabled(displayerSettings.isTableColumnPickerEnabled());
 
         if (displayerSettings.isResizable()) {
@@ -132,6 +131,8 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
         } else {
             view.setWidth(displayerSettings.getChartWidth());
         }
+        
+        view.setSelectable(displayerSettings.isFilterNotificationEnabled()); 
         view.setHeight(displayerSettings.getChartHeight());
 
         view.gotoFirstPage();
@@ -157,11 +158,9 @@ public class TableDisplayer extends AbstractErraiDisplayer<TableDisplayer.View> 
             }
         }
 
-        view.setTotalRows(totalRows);
         view.gotoFirstPage();
         view.redrawTable(columnsNames, data, displayerSettings.getTablePageSize());
         updateFilterStatus();
-
     }
 
     protected void updateFilterStatus() {

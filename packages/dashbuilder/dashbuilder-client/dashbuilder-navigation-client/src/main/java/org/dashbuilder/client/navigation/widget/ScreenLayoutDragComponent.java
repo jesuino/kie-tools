@@ -19,6 +19,7 @@ package org.dashbuilder.client.navigation.widget;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
@@ -45,7 +46,10 @@ public class ScreenLayoutDragComponent extends SinglePageNavigationDragComponent
     ComponentBuilder getComponentBuilder() {
         HTMLDivElement div = Js.cast(DomGlobal.document.createElement("div"));
         div.classList.add("uf-perspective-col");
-        return componentBuilder(div, (name, page) -> div.appendChild(page));
+        return componentBuilder(div, (name, page) -> {
+            page.style.height = HeightUnionType.of("auto");
+            div.appendChild(page);
+        });
     }
 
 }

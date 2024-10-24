@@ -57,7 +57,7 @@ public class MetricView extends AbstractDisplayerView<MetricDisplayer> implement
 
     @Override
     public String getNoDataString() {
-        return MetricConstants.INSTANCE.metricDisplayer_noDataAvailable();
+        return MetricConstants.metricDisplayer_noDataAvailable();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MetricView extends AbstractDisplayerView<MetricDisplayer> implement
 
     @Override
     public String getColumnsTitle() {
-        return MetricConstants.INSTANCE.metricDisplayer_columnsTitle();
+        return MetricConstants.metricDisplayer_columnsTitle();
     }
 
 }

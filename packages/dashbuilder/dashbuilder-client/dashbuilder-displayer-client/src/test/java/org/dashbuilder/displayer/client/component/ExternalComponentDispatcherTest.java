@@ -16,10 +16,17 @@
 
 package org.dashbuilder.displayer.client.component;
 
+import static java.util.Optional.empty;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.HashSet;
 import java.util.Optional;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.dashbuilder.displayer.client.resources.i18n.CommonConstants;
 import org.dashbuilder.displayer.external.ExternalComponentMessage;
 import org.dashbuilder.displayer.external.ExternalComponentMessageHelper;
@@ -31,16 +38,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static java.util.Optional.empty;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-@RunWith(GwtMockitoTestRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ExternalComponentDispatcherTest {
 
     private static final String DEST1 = "DEST1";

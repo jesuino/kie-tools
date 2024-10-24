@@ -16,15 +16,18 @@
 
 package org.dashbuilder.renderer.client.resources.i18n;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.Messages;
+public class MetricConstants {
 
-public interface MetricConstants extends Messages {
+    private MetricConstants() {
+    	
+    }
 
-    public static final MetricConstants INSTANCE = GWT.create( MetricConstants.class );
+    public static String metricDisplayer_noDataAvailable() {
+    	return "No Data Available";
+    }
 
-    String metricDisplayer_noDataAvailable();
-
-    String metricDisplayer_columnsTitle();
+    public static String metricDisplayer_columnsTitle() {
+    	return "Columns Title";
+    }
 
 }

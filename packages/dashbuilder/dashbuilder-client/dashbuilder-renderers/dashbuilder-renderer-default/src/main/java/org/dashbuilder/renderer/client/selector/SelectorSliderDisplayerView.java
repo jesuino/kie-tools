@@ -18,14 +18,6 @@ package org.dashbuilder.renderer.client.selector;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import com.google.gwt.dom.client.StyleInjector;
-import elemental2.dom.CSSProperties.MarginBottomUnionType;
-import elemental2.dom.CSSProperties.MarginLeftUnionType;
-import elemental2.dom.CSSProperties.MarginRightUnionType;
-import elemental2.dom.CSSProperties.MarginTopUnionType;
-import elemental2.dom.CSSProperties.WidthUnionType;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
 import org.dashbuilder.displayer.client.AbstractDisplayerView;
 import org.dashbuilder.patternfly.label.Label;
 import org.dashbuilder.patternfly.label.LabelColor;
@@ -34,96 +26,106 @@ import org.dashbuilder.renderer.client.resources.i18n.SelectorConstants;
 import org.dashbuilder.renderer.client.resources.i18n.SliderConstants;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
 
+import com.google.gwt.dom.client.StyleInjector;
+
+import elemental2.dom.CSSProperties.MarginBottomUnionType;
+import elemental2.dom.CSSProperties.MarginLeftUnionType;
+import elemental2.dom.CSSProperties.MarginRightUnionType;
+import elemental2.dom.CSSProperties.MarginTopUnionType;
+import elemental2.dom.CSSProperties.WidthUnionType;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+
 // TODO: Need to create a slider component - for now it is not available for use
 @Dependent
 @Templated
 public class SelectorSliderDisplayerView extends AbstractDisplayerView<SelectorSliderDisplayer>
-                                         implements SelectorSliderDisplayer.View {
+		implements SelectorSliderDisplayer.View {
 
-    @Inject
-    HTMLDivElement container;
+	@Inject
+	HTMLDivElement container;
 
-    @Inject
-    Slider slider;
+	@Inject
+	Slider slider;
 
-    @Inject
-    Label label;
+	@Inject
+	Label label;
 
-    @Override
-    public void init(SelectorSliderDisplayer presenter) {
-        super.init(presenter);
-        super.setVisualization(container);
+	@Override
+	public void init(SelectorSliderDisplayer presenter) {
+		super.init(presenter);
+		super.setVisualization(container);
 
-        // Enlarge the tooltip max width
-        StyleInjector.inject(".slider .tooltip-inner { max-width: 900px; }");
+		// Enlarge the tooltip max width
+		StyleInjector.inject(".slider .tooltip-inner { max-width: 900px; }");
 
-        // TODO: Slider setup
-    }
+		// TODO: Slider setup
+	}
 
-    @Override
-    public String getColumnsTitle() {
-        return SliderConstants.INSTANCE.sliderColumnName();
-    }
+	@Override
+	public String getColumnsTitle() {
+		return SliderConstants.sliderColumnName();
+	}
 
-    @Override
-    public void showTitle(String title) {
-        // TBD
-    }
+	@Override
+	public void showTitle(String title) {
+		// TBD
+	}
 
-    @Override
-    public void setWidth(int width) {
-        slider.getElement().style.width = WidthUnionType.of(width + "px");
-    }
+	@Override
+	public void setWidth(int width) {
+		slider.getElement().style.width = WidthUnionType.of(width + "px");
+	}
 
-    @Override
-    public void margins(int top, int bottom, int left, int right) {
-        container.style.marginTop = MarginTopUnionType.of(top + "px");
-        container.style.marginBottom = MarginBottomUnionType.of(bottom + "px");
-        container.style.marginLeft = MarginLeftUnionType.of(left + "px");
-        container.style.marginRight = MarginRightUnionType.of(right + "px");
-    }
+	@Override
+	public void margins(int top, int bottom, int left, int right) {
+		container.style.marginTop = MarginTopUnionType.of(top + "px");
+		container.style.marginBottom = MarginBottomUnionType.of(bottom + "px");
+		container.style.marginLeft = MarginLeftUnionType.of(left + "px");
+		container.style.marginRight = MarginRightUnionType.of(right + "px");
+	}
 
-    @Override
-    public void setSliderEnabled(boolean enabled) {
-        slider.setEnabled(enabled);
-        slider.setShowTooltip(enabled);
-    }
+	@Override
+	public void setSliderEnabled(boolean enabled) {
+		slider.setEnabled(enabled);
+		slider.setShowTooltip(enabled);
+	}
 
-    @Override
-    public void showSlider(double min, double max, double step, double minSelected, double maxSelected) {
-        slider.setMin(min);
-        slider.setMax(max);
-        slider.setValue(minSelected, maxSelected);
-        slider.setStep(step);
+	@Override
+	public void showSlider(double min, double max, double step, double minSelected, double maxSelected) {
+		slider.setMin(min);
+		slider.setMax(max);
+		slider.setValue(minSelected, maxSelected);
+		slider.setStep(step);
 
-    }
+	}
 
-    @Override
-    public void showInputs(HTMLElement minValueEditor, HTMLElement maxValueEditor) {
-        minValueEditor.style.set("margin-top", "5px");
-        maxValueEditor.style.set("margin-top", "5px");
-        minValueEditor.style.set("margin-bottom", "5px");
-        maxValueEditor.style.set("margin-bottom", "5px");
-        maxValueEditor.style.set("float", "right");
-    }
+	@Override
+	public void showInputs(HTMLElement minValueEditor, HTMLElement maxValueEditor) {
+		minValueEditor.style.set("margin-top", "5px");
+		maxValueEditor.style.set("margin-top", "5px");
+		minValueEditor.style.set("margin-bottom", "5px");
+		maxValueEditor.style.set("margin-bottom", "5px");
+		maxValueEditor.style.set("float", "right");
+	}
 
-    @Override
-    public String formatRange(String from, String to) {
-        return SliderConstants.INSTANCE.sliderTooltip(from, to);
-    }
+	@Override
+	public String formatRange(String from, String to) {
+		return SliderConstants.sliderTooltip(from, to);
+	}
 
-    @Override
-    public void textColumnsNotSupported() {
-        error(SliderConstants.INSTANCE.textColumnsNotSupported());
-    }
+	@Override
+	public void textColumnsNotSupported() {
+		error(SliderConstants.textColumnsNotSupported());
+	}
 
-    @Override
-    public void noData() {
-        error(SelectorConstants.INSTANCE.selectorDisplayer_noDataAvailable());
-    }
+	@Override
+	public void noData() {
+		error(SelectorConstants.selectorDisplayer_noDataAvailable());
+	}
 
-    protected void error(String msg) {
-        label.setLabelColor(LabelColor.RED);
-        label.setText(msg);
-    }
+	protected void error(String msg) {
+		label.setLabelColor(LabelColor.RED);
+		label.setText(msg);
+	}
 }

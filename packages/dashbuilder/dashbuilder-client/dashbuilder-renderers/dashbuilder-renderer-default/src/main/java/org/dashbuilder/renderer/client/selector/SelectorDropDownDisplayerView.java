@@ -19,19 +19,21 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLButtonElement;
-import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
-import elemental2.dom.HTMLUListElement;
-import jsinterop.base.Js;
 import org.dashbuilder.displayer.client.AbstractDisplayerView;
 import org.dashbuilder.renderer.client.resources.i18n.SelectorConstants;
 import org.jboss.errai.common.client.dom.elemental2.Elemental2DomUtil;
 import org.jboss.errai.ui.shared.api.annotations.DataField;
 import org.jboss.errai.ui.shared.api.annotations.EventHandler;
 import org.jboss.errai.ui.shared.api.annotations.Templated;
+
+import com.google.gwt.event.dom.client.ClickEvent;
+
+import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLButtonElement;
+import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLElement;
+import elemental2.dom.HTMLUListElement;
+import jsinterop.base.Js;
 
 @Dependent
 @Templated
@@ -106,7 +108,7 @@ public class SelectorDropDownDisplayerView extends AbstractDisplayerView<Selecto
 
     @Override
     public void showSelectHint(String column, boolean multiple) {
-        String hint = "- " + SelectorConstants.INSTANCE.selectorDisplayer_select() + " " + column + " - ";
+        String hint = "- " + SelectorConstants.selectorDisplayer_select() + " " + column + " - ";
         dropDownText.textContent = hint;
     }
 
@@ -133,12 +135,12 @@ public class SelectorDropDownDisplayerView extends AbstractDisplayerView<Selecto
 
     @Override
     public String getGroupsTitle() {
-        return SelectorConstants.INSTANCE.selectorDisplayer_groupsTitle();
+        return SelectorConstants.selectorDisplayer_groupsTitle();
     }
 
     @Override
     public String getColumnsTitle() {
-        return SelectorConstants.INSTANCE.selectorDisplayer_columnsTitle();
+        return SelectorConstants.selectorDisplayer_columnsTitle();
     }
 
     @Override

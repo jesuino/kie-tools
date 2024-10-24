@@ -16,10 +16,15 @@
 
 package org.dashbuilder.client.screens;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.Arrays;
 import java.util.List;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.dashbuilder.client.navigation.plugin.PerspectivePluginManager;
 import org.dashbuilder.client.place.PlaceManager;
 import org.dashbuilder.shared.model.RuntimeModel;
@@ -27,60 +32,54 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.uberfire.ext.layout.editor.api.editor.LayoutTemplate;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-@RunWith(GwtMockitoTestRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class RuntimeScreenTest {
 
-    @Mock
-    PlaceManager placeManager;
+	@Mock
+	PlaceManager placeManager;
 
-    @Mock
-    RuntimeModel runtimeModel;
+	@Mock
+	RuntimeModel runtimeModel;
 
-    @Mock
-    RuntimeScreen.View view;
+	@Mock
+	RuntimeScreen.View view;
 
-    @Mock
-    PerspectivePluginManager pluginManager;
+	@Mock
+	PerspectivePluginManager pluginManager;
 
-    @InjectMocks
-    RuntimeScreen runtimeScreen;
+	@InjectMocks
+	RuntimeScreen runtimeScreen;
 
-    @Test
-    public void testGoToIndexWithIndexPage() {
-        String randomPage = "randomPage";
-        List<LayoutTemplate> templates = Arrays.asList(new LayoutTemplate(randomPage),
-                new LayoutTemplate(RuntimeScreen.INDEX_PAGE_NAME));
+	@Test
+	public void testGoToIndexWithIndexPage() {
+		String randomPage = "randomPage";
+		List<LayoutTemplate> templates = Arrays.asList(new LayoutTemplate(randomPage),
+				new LayoutTemplate(RuntimeScreen.INDEX_PAGE_NAME));
 
-        runtimeScreen.goToIndex(templates);
+		runtimeScreen.goToIndex(templates);
 
-        verify(pluginManager).buildPerspectiveWidget(eq(RuntimeScreen.INDEX_PAGE_NAME), any());
-        verify(pluginManager, times(0)).buildPerspectiveWidget(eq(randomPage), any());
-    }
+		verify(pluginManager).buildPerspectiveWidget(eq(RuntimeScreen.INDEX_PAGE_NAME), any());
+		verify(pluginManager, times(0)).buildPerspectiveWidget(eq(randomPage), any());
+	}
 
-    @Test
-    public void testGoToIndexWithSinglePage() {
-        String randomPage = "randomPage";
-        List<LayoutTemplate> templates = Arrays.asList(new LayoutTemplate(randomPage));
+	@Test
+	public void testGoToIndexWithSinglePage() {
+		String randomPage = "randomPage";
+		List<LayoutTemplate> templates = Arrays.asList(new LayoutTemplate(randomPage));
 
-        runtimeScreen.goToIndex(templates);
+		runtimeScreen.goToIndex(templates);
 
-        verify(pluginManager).buildPerspectiveWidget(eq(randomPage), any());
-    }
+		verify(pluginManager).buildPerspectiveWidget(eq(randomPage), any());
+	}
 
-    @Test
-    public void testGoToIndexWithoutIndex() {
-        List<LayoutTemplate> templates = Arrays.asList(new LayoutTemplate("page1"),
-                new LayoutTemplate("page2"));
-        runtimeScreen.goToIndex(templates);
-        verify(placeManager, times(0)).goTo(anyString());
-    }
+	@Test
+	public void testGoToIndexWithoutIndex() {
+		List<LayoutTemplate> templates = Arrays.asList(new LayoutTemplate("page1"), new LayoutTemplate("page2"));
+		runtimeScreen.goToIndex(templates);
+		verify(placeManager, times(0)).goTo(anyString());
+	}
 
 }

@@ -1,23 +1,5 @@
 package org.dashbuilder.displayer.client;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import com.google.gwtmockito.GwtMockitoTestRunner;
-import org.dashbuilder.displayer.DisplayerSettings;
-import org.dashbuilder.displayer.DisplayerSubType;
-import org.dashbuilder.displayer.DisplayerType;
-import org.jboss.errai.ioc.client.container.SyncBeanDef;
-import org.jboss.errai.ioc.client.container.SyncBeanManager;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-
 import static org.dashbuilder.displayer.DisplayerSubType.AREA;
 import static org.dashbuilder.displayer.DisplayerSubType.BAR;
 import static org.dashbuilder.displayer.DisplayerSubType.BAR_STACKED;
@@ -36,7 +18,25 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@RunWith(GwtMockitoTestRunner.class)
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.dashbuilder.displayer.DisplayerSettings;
+import org.dashbuilder.displayer.DisplayerSubType;
+import org.dashbuilder.displayer.DisplayerType;
+import org.jboss.errai.ioc.client.container.SyncBeanDef;
+import org.jboss.errai.ioc.client.container.SyncBeanManager;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
 public class RendererManagerTest {
 
     private static final String REND2_NAME = "renderer 2";
@@ -152,8 +152,6 @@ public class RendererManagerTest {
     public void rendererByDisplayerTest() {
         DisplayerSettings settings = mock(DisplayerSettings.class);
         when(settings.getRenderer()).thenReturn(REND1_UUID);
-        when(settings.getType()).thenReturn(BARCHART);
-        when(settings.getSubtype()).thenReturn(BAR);
         RendererLibrary lib = rendererManager.getRendererForDisplayer(settings);
         assertNotNull(lib);
         assertEquals(REND1_UUID, lib.getUUID());
@@ -198,7 +196,6 @@ public class RendererManagerTest {
         RendererLibrary lib = mock(RendererLibrary.class);
         when(lib.getName()).thenReturn(name);
         when(lib.getUUID()).thenReturn(uuid);
-        when(lib.isOffline()).thenReturn(offline);
         List<DisplayerType> supportedTypesList = typesAndSubTypes.keySet().stream().collect(Collectors.toList());
         when(lib.getSupportedTypes()).thenReturn(supportedTypesList);
         typesAndSubTypes.forEach((type, subTypes) -> when(lib.getSupportedSubtypes(type)).thenReturn(subTypes));

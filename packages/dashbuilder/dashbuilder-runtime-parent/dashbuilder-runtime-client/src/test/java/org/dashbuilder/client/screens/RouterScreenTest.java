@@ -16,12 +16,16 @@
 
 package org.dashbuilder.client.screens;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.dashbuilder.client.RuntimeClientLoader;
 import org.dashbuilder.client.place.PlaceManager;
 import org.dashbuilder.shared.model.DashbuilderRuntimeMode;
@@ -31,13 +35,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-@RunWith(GwtMockitoTestRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class RouterScreenTest {
 
     @Mock

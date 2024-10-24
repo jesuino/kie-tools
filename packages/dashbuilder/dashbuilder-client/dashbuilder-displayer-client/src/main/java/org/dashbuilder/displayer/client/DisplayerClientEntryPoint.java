@@ -16,10 +16,8 @@
 package org.dashbuilder.displayer.client;
 
 import org.jboss.errai.ioc.client.api.EntryPoint;
-import org.jboss.errai.ui.shared.api.annotations.Bundle;
 
 @EntryPoint
-@Bundle("resources/i18n/CommonConstants.properties")
 public class DisplayerClientEntryPoint {
 
 }

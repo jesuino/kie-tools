@@ -16,16 +16,21 @@
 
 package org.dashbuilder.renderer.client.resources.i18n;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.Messages;
+public class SliderConstants {
 
-public interface SliderConstants extends Messages {
+	private SliderConstants() {
 
-    SliderConstants INSTANCE = GWT.create(SliderConstants.class);
+	}
 
-    String sliderTooltip(String from, String to);
+	public static String sliderTooltip(String from, String to) {
+		return "Selects values from " + from + " to " + to;
+	}
 
-    String sliderColumnName();
+	public static String sliderColumnName() {
+		return "Column name";
+	}
 
-    String textColumnsNotSupported();
+	public static String textColumnsNotSupported() {
+		return "Columns not supported";
+	}
 }

@@ -16,23 +16,34 @@
 
 package org.dashbuilder.renderer.client.resources.i18n;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.Messages;
+public class SelectorConstants {
 
-public interface SelectorConstants extends Messages {
+	private SelectorConstants() {
 
-    SelectorConstants INSTANCE = GWT.create( SelectorConstants.class );
+	}
 
-    String selectorDisplayer_noDataAvailable();
+	public static String selectorDisplayer_noDataAvailable() {
+		return "No Data is available";
+	}
 
-    String selectorDisplayer_groupsTitle();
+	public static String selectorDisplayer_groupsTitle() {
+		return "Groups Title";
+	}
 
-    String selectorDisplayer_columnsTitle();
+	public static String selectorDisplayer_columnsTitle() {
+		return "Columns Title";
+	}
 
-    String selectorDisplayer_select();
+	public static String selectorDisplayer_select() {
+		return "select";
+	}
 
-    String selectorDisplayer_reset();
+	public static String selectorDisplayer_reset() {
+		return "reset";
+	}
 
-    String selectorDisplayer_clearAll();
+	public static String selectorDisplayer_clearAll() {
+		return "Clear All";
+	}
 
 }

@@ -86,16 +86,16 @@ public class SelectorLabelSetDisplayerView extends AbstractDisplayerView<Selecto
 
     @Override
     public void noData() {
-        noDataSpan.setTextContent(SelectorConstants.INSTANCE.selectorDisplayer_noDataAvailable());
+        noDataSpan.setTextContent(SelectorConstants.selectorDisplayer_noDataAvailable());
     }
 
     @Override
     public String getGroupsTitle() {
-        return SelectorConstants.INSTANCE.selectorDisplayer_groupsTitle();
+        return SelectorConstants.selectorDisplayer_groupsTitle();
     }
 
     @Override
     public String getColumnsTitle() {
-        return SelectorConstants.INSTANCE.selectorDisplayer_columnsTitle();
+        return SelectorConstants.selectorDisplayer_columnsTitle();
     }
 }

@@ -6,7 +6,7 @@
 under the Apache License, Version 2.0 (the "License");
   ~ you may not use this
 file except in compliance with the License.
-  ~ You may obtain a copy of the
+  ~ You may obtain a copy of the  
 License at
   ~
   ~       http://www.apache.org/licenses/LICENSE-2.0
@@ -32,7 +32,7 @@ under the License.
 	<parent>
 		<groupId>org.dashbuilder</groupId>
 		<artifactId>dashbuilder-client</artifactId>
-		<version>${revision}</version>
+		<version>0.4.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>dashbuilder-displayer-client</artifactId>
@@ -122,12 +122,6 @@ under the License.
 			<groupId>org.dashbuilder</groupId>
 			<artifactId>dashbuilder-dataset-client</artifactId>
 			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.gwt.gwtmockito</groupId>
-			<artifactId>gwtmockito</artifactId>
 			<scope>test</scope>
 		</dependency>
 

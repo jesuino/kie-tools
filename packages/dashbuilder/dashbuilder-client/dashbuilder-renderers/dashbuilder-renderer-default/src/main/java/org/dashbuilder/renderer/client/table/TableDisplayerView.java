@@ -33,99 +33,95 @@ import org.jboss.errai.ui.shared.api.annotations.Templated;
 @Templated
 public class TableDisplayerView extends AbstractDisplayerView<TableDisplayer> implements TableDisplayer.View {
 
-    @Inject
-    protected Table table;
+	@Inject
+	protected Table table;
 
-    @Inject
-    @DataField
-    HTMLDivElement rootContainer;
+	@Inject
+	@DataField
+	HTMLDivElement rootContainer;
 
-    @Inject
-    @DataField
-    HTMLDivElement filterLabelContainer;
+	@Inject
+	@DataField
+	HTMLDivElement filterLabelContainer;
 
-    @Inject
-    @DataField
-    HTMLDivElement tableContainer;
+	@Inject
+	@DataField
+	HTMLDivElement tableContainer;
 
-    @Inject
-    Elemental2DomUtil elemental2DomUtil;
+	@Inject
+	Elemental2DomUtil elemental2DomUtil;
 
-    @Override
-    public void init(TableDisplayer presenter) {
-        super.init(presenter);
-        super.setVisualization(Js.cast(rootContainer));
+	@Override
+	public void init(TableDisplayer presenter) {
+		super.init(presenter);
+		super.setVisualization(Js.cast(rootContainer));
 
-        tableContainer.append(table.getElement());
-        filterLabelContainer.append(presenter.getFilterLabelSet().getElement());
+		tableContainer.append(table.getElement());
+		filterLabelContainer.append(presenter.getFilterLabelSet().getElement());
 
-        table.setOnCellSelectedListener(presenter::selectCell);
-    }
+		table.setOnCellSelectedListener(presenter::selectCell);
+	}
 
-    @Override
-    public void showTitle(String title) {
-        table.setTitle(title);
-    }
+	@Override
+	public void showTitle(String title) {
+		table.setTitle(title);
+	}
 
-    @Override
-    public String getGroupsTitle() {
-        return TableConstants.INSTANCE.tableDisplayer_groupsTitle();
-    }
+	@Override
+	public String getGroupsTitle() {
+		return TableConstants.tableDisplayer_groupsTitle();
+	}
 
-    @Override
-    public String getColumnsTitle() {
-        return TableConstants.INSTANCE.tableDisplayer_columnsTitle();
-    }
+	@Override
+	public String getColumnsTitle() {
+		return TableConstants.tableDisplayer_columnsTitle();
+	}
 
-    @Override
-    public void redrawTable(List<String> columnsNames, String[][] data, int pageSize) {
-        table.buildTable(columnsNames, data, pageSize);
-    }
+	@Override
+	public void redrawTable(List<String> columnsNames, String[][] data, int pageSize) {
+		table.buildTable(columnsNames, data, pageSize);
+	}
 
-    @Override
-    public void setWidth(int width) {
-        table.getElement().style.width = WidthUnionType.of(width + "px");
-    }
+	@Override
+	public void setWidth(int width) {
+		table.getElement().style.width = WidthUnionType.of(width + "px");
+	}
 
-    @Override
-    public void setHeight(int chartHeight) {
-        table.setHeight(chartHeight);
-    }
+	@Override
+	public void setHeight(int chartHeight) {
+		table.setHeight(chartHeight);
+	}
 
-    @Override
-    public void fullWidth() {
-        table.getElement().style.width = WidthUnionType.of("100%");
-    }
+	@Override
+	public void fullWidth() {
+		table.getElement().style.width = WidthUnionType.of("100%");
+	}
 
-    @Override
-    public void setSortEnabled(boolean enabled) {
-        //table.setSortEnabled(enabled);
-    }
+	@Override
+	public void setSortEnabled(boolean enabled) {
+		// table.setSortEnabled(enabled);
+	}
 
-    @Override
-    public void setColumnPickerEnabled(boolean enabled) {
-        //table.setColumnPickerButtonVisible(enabled);
-    }
+	@Override
+	public void setColumnPickerEnabled(boolean enabled) {
+		// table.setColumnPickerButtonVisible(enabled);
+	}
 
-    @Override
-    public void addColumn(ColumnType columnType,
-                          String columnId,
-                          String columnName,
-                          int index,
-                          boolean selectEnabled,
-                          boolean sortEnabled) {
-        // no-op
+	@Override
+	public void addColumn(ColumnType columnType, String columnId, String columnName, int index, boolean selectEnabled,
+			boolean sortEnabled) {
+		// no-op
 
-    }
+	}
 
-    @Override
-    public void gotoFirstPage() {
-        table.showPage(1);
-    }
+	@Override
+	public void gotoFirstPage() {
+		table.showPage(1);
+	}
 
-    @Override
-    public void setSelectable(boolean selectable) {
-        table.setSelectable(selectable);
-    }
+	@Override
+	public void setSelectable(boolean selectable) {
+		table.setSelectable(selectable);
+	}
 
 }

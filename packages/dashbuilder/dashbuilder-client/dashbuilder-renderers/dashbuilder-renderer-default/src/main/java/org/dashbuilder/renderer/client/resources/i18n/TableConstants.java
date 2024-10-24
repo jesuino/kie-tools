@@ -16,26 +16,18 @@
 
 package org.dashbuilder.renderer.client.resources.i18n;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.i18n.client.Messages;
+public class TableConstants {
+	
+	private TableConstants() {
+		
+	}
 
-public interface TableConstants extends Messages {
+	public static String tableDisplayer_groupsTitle() {
+		return "Data set not found";
+	}
 
-    TableConstants INSTANCE = GWT.create(TableConstants.class);
+	public static String tableDisplayer_columnsTitle() {
+		return "Data set not found";
+	}
 
-    String tableDisplayer_noDataAvailable();
-
-    String tableDisplayer_groupsTitle();
-
-    String tableDisplayer_columnsTitle();
-
-    String tableDisplayer_export_to_csv();
-
-    String tableDisplayer_export_to_xls();
-
-    String tableDisplayer_reset();
-
-    String tableDisplayer_export_no_data();
-
-    String tableDisplayer_export_too_many_rows(int rowNum, int limit);
 }

@@ -15,16 +15,16 @@
  */
 package org.dashbuilder.client.parser;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Collections;
 
-import com.google.gwtmockito.GwtMockitoTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-
-@RunWith(GwtMockitoTestRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class PropertyReplacementServiceTest {
 
     private String TEXT_WITH_PROPERTY = "Property: ${prop}";

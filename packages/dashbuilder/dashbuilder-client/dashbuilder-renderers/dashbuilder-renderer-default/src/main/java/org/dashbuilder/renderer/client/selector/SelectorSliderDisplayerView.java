@@ -18,16 +18,7 @@ package org.dashbuilder.renderer.client.selector;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import org.dashbuilder.displayer.client.AbstractDisplayerView;
-import org.dashbuilder.patternfly.label.Label;
-import org.dashbuilder.patternfly.label.LabelColor;
-import org.dashbuilder.patternfly.slider.Slider;
-import org.dashbuilder.renderer.client.resources.i18n.SelectorConstants;
-import org.dashbuilder.renderer.client.resources.i18n.SliderConstants;
-import org.jboss.errai.ui.shared.api.annotations.Templated;
-
 import com.google.gwt.dom.client.StyleInjector;
-
 import elemental2.dom.CSSProperties.MarginBottomUnionType;
 import elemental2.dom.CSSProperties.MarginLeftUnionType;
 import elemental2.dom.CSSProperties.MarginRightUnionType;
@@ -35,6 +26,13 @@ import elemental2.dom.CSSProperties.MarginTopUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
+import org.dashbuilder.displayer.client.AbstractDisplayerView;
+import org.dashbuilder.patternfly.label.Label;
+import org.dashbuilder.patternfly.label.LabelColor;
+import org.dashbuilder.patternfly.slider.Slider;
+import org.dashbuilder.renderer.client.resources.i18n.SelectorConstants;
+import org.dashbuilder.renderer.client.resources.i18n.SliderConstants;
+import org.jboss.errai.ui.shared.api.annotations.Templated;
 
 // TODO: Need to create a slider component - for now it is not available for use
 @Dependent

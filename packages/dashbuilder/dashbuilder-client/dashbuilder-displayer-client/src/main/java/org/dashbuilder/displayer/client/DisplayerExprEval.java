@@ -14,13 +14,12 @@
  */
 package org.dashbuilder.displayer.client;
 
-import org.dashbuilder.common.client.StringUtils;
-import org.dashbuilder.displayer.client.resources.i18n.DisplayerConstants;
-
 import elemental2.core.Global;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import org.dashbuilder.common.client.StringUtils;
+import org.dashbuilder.displayer.client.resources.i18n.DisplayerConstants;
 
 public class DisplayerExprEval implements AbstractDisplayer.ExpressionEval {
 

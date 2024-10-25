@@ -1,23 +1,5 @@
 package org.dashbuilder.displayer.client;
 
-import static org.dashbuilder.displayer.DisplayerSubType.AREA;
-import static org.dashbuilder.displayer.DisplayerSubType.BAR;
-import static org.dashbuilder.displayer.DisplayerSubType.BAR_STACKED;
-import static org.dashbuilder.displayer.DisplayerSubType.LINE;
-import static org.dashbuilder.displayer.DisplayerSubType.MAP_MARKERS;
-import static org.dashbuilder.displayer.DisplayerSubType.MAP_REGIONS;
-import static org.dashbuilder.displayer.DisplayerSubType.SMOOTH;
-import static org.dashbuilder.displayer.DisplayerType.AREACHART;
-import static org.dashbuilder.displayer.DisplayerType.BARCHART;
-import static org.dashbuilder.displayer.DisplayerType.LINECHART;
-import static org.dashbuilder.displayer.DisplayerType.MAP;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,6 +17,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.dashbuilder.displayer.DisplayerSubType.AREA;
+import static org.dashbuilder.displayer.DisplayerSubType.BAR;
+import static org.dashbuilder.displayer.DisplayerSubType.BAR_STACKED;
+import static org.dashbuilder.displayer.DisplayerSubType.LINE;
+import static org.dashbuilder.displayer.DisplayerSubType.MAP_MARKERS;
+import static org.dashbuilder.displayer.DisplayerSubType.MAP_REGIONS;
+import static org.dashbuilder.displayer.DisplayerSubType.SMOOTH;
+import static org.dashbuilder.displayer.DisplayerType.AREACHART;
+import static org.dashbuilder.displayer.DisplayerType.BARCHART;
+import static org.dashbuilder.displayer.DisplayerType.LINECHART;
+import static org.dashbuilder.displayer.DisplayerType.MAP;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RendererManagerTest {

@@ -20,13 +20,12 @@ import java.util.function.Consumer;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.dashbuilder.client.screens.Router;
-import org.dashbuilder.displayer.external.ExternalComponentMessage;
-
 import elemental2.dom.DomGlobal;
 import elemental2.dom.MessageEvent;
 import elemental2.dom.Window;
 import jsinterop.base.Js;
+import org.dashbuilder.client.screens.Router;
+import org.dashbuilder.displayer.external.ExternalComponentMessage;
 
 @ApplicationScoped
 public class RuntimeModelContentListener {

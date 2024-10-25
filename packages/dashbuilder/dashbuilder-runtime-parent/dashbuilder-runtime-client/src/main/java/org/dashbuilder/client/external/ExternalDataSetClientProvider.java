@@ -15,8 +15,6 @@
  */
 package org.dashbuilder.client.external;
 
-import static org.dashbuilder.common.client.StringUtils.isBlank;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -25,6 +23,14 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import elemental2.core.Global;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.FormData;
+import elemental2.dom.Headers;
+import elemental2.dom.RequestInit;
+import elemental2.dom.Response;
+import elemental2.dom.URL;
+import elemental2.promise.IThenable;
 import org.dashbuilder.client.external.transformer.JSONAtaInjector;
 import org.dashbuilder.client.external.transformer.JSONAtaTransformer;
 import org.dashbuilder.common.client.error.ClientRuntimeError;
@@ -36,14 +42,7 @@ import org.dashbuilder.dataset.client.ExternalDataSetParserProvider;
 import org.dashbuilder.dataset.def.ExternalDataSetDef;
 import org.dashbuilder.dataset.def.HttpMethod;
 
-import elemental2.core.Global;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.FormData;
-import elemental2.dom.Headers;
-import elemental2.dom.RequestInit;
-import elemental2.dom.Response;
-import elemental2.dom.URL;
-import elemental2.promise.IThenable;
+import static org.dashbuilder.common.client.StringUtils.isBlank;
 
 @ApplicationScoped
 public class ExternalDataSetClientProvider {

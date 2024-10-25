@@ -16,9 +16,6 @@
 
 package org.dashbuilder.displayer.client.widgets;
 
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-
 import org.dashbuilder.displayer.client.component.ExternalComponentDispatcher;
 import org.dashbuilder.displayer.client.widgets.ExternalComponentPresenter.View;
 import org.dashbuilder.displayer.external.ExternalComponentMessage;
@@ -29,6 +26,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ExternalComponentPresenterTest {

@@ -25,7 +25,7 @@ import org.dashbuilder.dataset.date.DayOfWeek;
 import org.dashbuilder.dataset.date.Month;
 import org.dashbuilder.displayer.ColumnSettings;
 
-public class DisplayerGwtFormatter implements AbstractDisplayer.Formatter {
+public class DisplayerFormatter implements AbstractDisplayer.Formatter {
 
     protected static Map<String,NumberFormat> numberPatternMap = new HashMap<String, NumberFormat>();
     protected static Map<String,DateTimeFormat> datePatternMap = new HashMap<String, DateTimeFormat>();

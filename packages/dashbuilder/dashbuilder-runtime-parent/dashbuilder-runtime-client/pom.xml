@@ -39,8 +39,9 @@
       <dependency>
         <groupId>org.dashbuilder</groupId>
         <artifactId>dashbuilder-runtime-shared</artifactId>
+        <scope>provided</scope>
         <version>${project.version}</version>
-      </dependency>
+      </dependency>      
       <dependency>
         <groupId>org.webjars.npm</groupId>
         <artifactId>jsonata</artifactId>
@@ -62,6 +63,13 @@
     </dependency>
 
     <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-runtime-shared</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
+
+    <dependency>
       <groupId>jakarta.ws.rs</groupId>
       <artifactId>jakarta.ws.rs-api</artifactId>
       <scope>provided</scope>
@@ -73,11 +81,59 @@
       <artifactId>kie-soup-commons</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-commons</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-json</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-json</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-dataset-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-dataset-api</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-dataset-shared</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.soup</groupId>
+      <artifactId>kie-soup-dataset-shared</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
 
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-common-client</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-common-client</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <dependency>
@@ -85,23 +141,40 @@
       <artifactId>dashbuilder-dataset-client</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-dataset-client</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
 
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-patternfly</artifactId>
       <scope>provided</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-patternfly</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-displayer-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-displayer-api</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-displayer-client</artifactId>
       <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <dependency>
@@ -109,11 +182,23 @@
       <artifactId>dashbuilder-displayer-editor</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-displayer-editor</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
 
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-renderer-default</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-renderer-default</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <dependency>
@@ -121,11 +206,23 @@
       <artifactId>dashbuilder-renderer-echarts</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-renderer-echarts</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
 
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-navigation-api</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-navigation-api</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <!-- needed due navigation drag components -->
@@ -134,11 +231,23 @@
       <artifactId>dashbuilder-navigation-client</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-navigation-client</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
 
     <dependency>
       <groupId>org.dashbuilder</groupId>
       <artifactId>dashbuilder-services-api</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.dashbuilder</groupId>
+      <artifactId>dashbuilder-services-api</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <!-- UberFire -->
@@ -147,11 +256,22 @@
       <artifactId>uberfire-api</artifactId>
       <scope>provided</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.uberfire</groupId>
+      <artifactId>uberfire-api</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
     <dependency>
       <groupId>org.uberfire</groupId>
       <artifactId>uberfire-layout-editor-client</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.uberfire</groupId>
+      <artifactId>uberfire-layout-editor-client</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <dependency>
@@ -159,12 +279,24 @@
       <artifactId>uberfire-layout-editor-api</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.uberfire</groupId>
+      <artifactId>uberfire-layout-editor-api</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>
     
     <dependency>
       <groupId>org.uberfire</groupId>
       <artifactId>uberfire-runtime-plugins-client</artifactId>
       <scope>provided</scope>
-    </dependency>    
+    </dependency>
+    <dependency>
+      <groupId>org.uberfire</groupId>
+      <artifactId>uberfire-runtime-plugins-client</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
+    </dependency>  
     
     <!-- Errai -->
     <dependency>
@@ -196,6 +328,12 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <scope>provided</scope>
+      <classifier>sources</classifier>
     </dependency>
 
     <!-- Container provided dependencies -->
@@ -299,7 +437,6 @@
   <build>
     <finalName>${project.artifactId}</finalName>
     <outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
-
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -320,40 +457,7 @@
           <!-- <server>org.jboss.errai.cdi.server.gwt.EmbeddedWildFlyLauncher</server> -->
           <hostedWebapp>src/main/webapp</hostedWebapp>
           <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
-          <disableCastChecking>true</disableCastChecking>
-          <compileSourcesArtifacts>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-runtime-shared</compileSourcesArtifact>
-
-            <!-- Validation -->
-            <compileSourcesArtifact>org.hibernate:hibernate-validator</compileSourcesArtifact>
-
-            <!-- Dashbuilder -->
-            <compileSourcesArtifact>org.kie.soup:kie-soup-json</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-common-client</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-dataset-client</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-services-api</compileSourcesArtifact>
-            <compileSourcesArtifact>org.kie.soup:kie-soup-dataset-api</compileSourcesArtifact>
-            <compileSourcesArtifact>org.kie.soup:kie-soup-dataset-shared</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-patternfly</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-displayer-api</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-displayer-client</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-displayer-editor</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-renderer-default</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-renderer-echarts</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-navigation-api</compileSourcesArtifact>
-            <compileSourcesArtifact>org.dashbuilder:dashbuilder-navigation-client</compileSourcesArtifact>
-
-            <!-- Uberfire ext -->
-            <compileSourcesArtifact>org.uberfire:uberfire-layout-editor-api</compileSourcesArtifact>
-            <compileSourcesArtifact>org.uberfire:uberfire-layout-editor-client</compileSourcesArtifact>
-            <compileSourcesArtifact>org.uberfire:uberfire-runtime-plugins-client</compileSourcesArtifact>
-
-            <compileSourcesArtifact>org.kie.soup:kie-soup-commons</compileSourcesArtifact>
-
-            <!-- UberFire -->
-            <compileSourcesArtifact>org.uberfire:uberfire-api</compileSourcesArtifact>
-
-          </compileSourcesArtifacts>
+          <disableCastChecking>true</disableCastChecking>         
           <compileReport>true</compileReport>
         </configuration>
         <executions>

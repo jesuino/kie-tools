@@ -183,7 +183,7 @@ public abstract class AbstractDisplayer<V extends AbstractDisplayer.View> implem
 
     public Formatter getFormatter() {
         if (formatter == null) {
-            formatter = new DisplayerGwtFormatter();
+            formatter = new DisplayerFormatter();
         }
         return formatter;
     }
@@ -194,7 +194,7 @@ public abstract class AbstractDisplayer<V extends AbstractDisplayer.View> implem
 
     public ExpressionEval getEvaluator() {
         if (evaluator == null) {
-            evaluator = new DisplayerGwtExprEval(this);
+            evaluator = new DisplayerExprEval(this);
         }
         return evaluator;
     }

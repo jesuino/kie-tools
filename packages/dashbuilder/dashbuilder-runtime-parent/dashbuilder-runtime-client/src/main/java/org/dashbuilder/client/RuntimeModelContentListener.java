@@ -20,12 +20,13 @@ import java.util.function.Consumer;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.dashbuilder.client.screens.Router;
+import org.dashbuilder.displayer.external.ExternalComponentMessage;
+
 import elemental2.dom.DomGlobal;
 import elemental2.dom.MessageEvent;
 import elemental2.dom.Window;
 import jsinterop.base.Js;
-import org.dashbuilder.client.screens.Router;
-import org.dashbuilder.displayer.external.ExternalComponentMessage;
 
 @ApplicationScoped
 public class RuntimeModelContentListener {
@@ -39,7 +40,6 @@ public class RuntimeModelContentListener {
     Router routerScreen;
 
     public void start(Consumer<String> contentConsumer) {
-        setupBridge(contentConsumer);
         if (!hasEnvelope()) {
             DomGlobal.window.addEventListener("message", evt -> {
                 MessageEvent<Object> message = Js.cast(evt);
@@ -60,14 +60,5 @@ public class RuntimeModelContentListener {
         return DomGlobal.document.getElementById("envelope-app") != null;
     }
 
-    private static native void setupBridge(Consumer<String> contentListener) /*-{
-        $wnd.setDashbuilderContent = function (content) {
-            contentListener.@java.util.function.Consumer::accept(Ljava/lang/Object;)(content);        
-        };
-        if ($wnd.dashbuilderReady) {
-            $wnd.dashbuilderReady();
-        }
-        ;
-    }-*/;
 
 }

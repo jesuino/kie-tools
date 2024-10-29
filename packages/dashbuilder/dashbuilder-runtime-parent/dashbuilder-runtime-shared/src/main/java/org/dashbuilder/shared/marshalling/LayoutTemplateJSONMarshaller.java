@@ -448,6 +448,10 @@ public class LayoutTemplateJSONMarshaller {
         if (element != null) {
             var layoutComponent = new LayoutComponent(elementDragType);
             layoutComponent.getProperties().put(elementProperty, element);
+            object.remove(elementName);
+            for (String key : object.keys()) {
+                layoutComponent.getProperties().put(key, object.getString(key));
+            }
             return Optional.of(layoutComponent);
         }
         return Optional.empty();
